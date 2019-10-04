@@ -1,0 +1,5 @@
+# Main entry point - the `calrom` executable.
+
+require 'calrom'
+
+Calrom::CLI.call ARGV

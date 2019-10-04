@@ -11,10 +11,10 @@ Coming soon.
 
 ## Project roadmap
 
+* [ ] detailed listing of a day/month/year/range of dates
 * [ ] month/year overview - options and output mostly mimicking the
   the BSD Unix [`cal`](https://www.freebsd.org/cgi/man.cgi?query=cal) utility,
   but with liturgical colours and celebration ranks
-* [ ] detailed listing of a day/month/year/range of dates
 * [ ] condensed format (but with detailed information) suitable for awesome/i3 toolbars etc.
 * [ ] machine-readable detailed listing
 * [ ] year summary: lectionary cycles, movable feasts
@@ -24,8 +24,26 @@ Coming soon.
 * [ ] integrate online data sources
 * [ ] interactive browsing
 
+## Backward compatibility
+
+Project adheres to [semantic versioning][semver]
+with regard to the command line interface:
+between major releases,
+the same configuration (through command line options and other
+ways of configuration the application will eventually support)
+should print information of the same (or greater) level of detail
+for the same range of dates.
+For output formats explicitly documented as machine-readable
+output format must be preserved (where some machine-readable
+formats, especially the structured ones, allow backward-compatible
+extensions, others do not, according to their nature).
+
+No backward compatibility is enforced on the level of application's
+internal interfaces, since the code is not intended to be reused.
+
 ## License
 
 GNU/GPL 3.0 or later
 
 [caro]: https://github.com/igneus/calendarium-romanum
+[semver]: https://semver.org/
