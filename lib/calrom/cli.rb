@@ -7,8 +7,7 @@ module Calrom
       puts
 
       config.date_range.each do |date|
-        litday = calendar[date]
-        litday.celebrations.each_with_index do |celebration, i|
+        calendar[date].celebrations.each_with_index do |celebration, i|
           if i > 0
             print ' ' * 3
           else
