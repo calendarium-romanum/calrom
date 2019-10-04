@@ -13,7 +13,7 @@ Coming soon.
 
 * [ ] detailed listing of a day/month/year/range of dates
 * [ ] month/year overview - options and output mostly mimicking the
-  the BSD Unix [`cal`](https://www.freebsd.org/cgi/man.cgi?query=cal) utility,
+  the BSD Unix [`cal`][cal] utility,
   but with liturgical colours and celebration ranks
 * [ ] condensed format (but with detailed information) suitable for awesome/i3 toolbars etc.
 * [ ] machine-readable detailed listing
@@ -41,9 +41,21 @@ extensions, others do not, according to their nature).
 No backward compatibility is enforced on the level of application's
 internal interfaces, since the code is not intended to be reused.
 
+## CLI patterns
+
+When designing new elements (options, arguments) of the
+command line interface
+
+* [(BSD version of) `cal`][cal] should be mimicked where reasonable
+* the [Command-Line Options][taoup] chapter from E. S. Raymond's
+  "The Art of Unix Programming" should be consulted in the rest
+  of cases
+
 ## License
 
 GNU/GPL 3.0 or later
 
 [caro]: https://github.com/igneus/calendarium-romanum
 [semver]: https://semver.org/
+[cal]: https://www.freebsd.org/cgi/man.cgi?query=cal
+[taoup]: http://www.catb.org/esr/writings/taoup/html/ch10s05.html
