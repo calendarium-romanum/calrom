@@ -19,6 +19,8 @@ module Calrom
           end
 
           print ' '
+          print celebration.colour.name[0].upcase
+          print ' '
           print celebration.title
           print ',  '
           print celebration.rank.short_desc
