@@ -33,13 +33,14 @@ the same configuration (through command line options and other
 ways of configuration the application will eventually support)
 should print information of the same (or greater) level of detail
 for the same range of dates.
-For output formats explicitly documented as machine-readable
-output format must be preserved (where some machine-readable
+For output formats explicitly documented as machine-readable,
+format must be preserved (where some machine-readable
 formats, especially the structured ones, allow backward-compatible
 extensions, others do not, according to their nature).
 
-No backward compatibility is enforced on the level of application's
-internal interfaces, since the code is not intended to be reused.
+No backward compatibility is guaranteed on the level of the application's
+internal interfaces, since they are not intended to be used
+by third-party code.
 
 ## CLI patterns
 
