@@ -3,14 +3,13 @@
 Command line utility providing access to the Roman Catholic
 liturgical calendar (post-Vatican II).
 
+Built on top of the [calendarium-romanum][caro] Ruby gem.
+
 ## Installation
 
 Coming soon.
 
 ## Project roadmap
-
-`calrom` is in an early stage of development.
-Goal is to provide a handy utility
 
 * [ ] month/year overview - options and output mostly mimicking the
   the BSD Unix [`cal`](https://www.freebsd.org/cgi/man.cgi?query=cal) utility,
@@ -28,3 +27,5 @@ Goal is to provide a handy utility
 ## License
 
 GNU/GPL 3.0 or later
+
+[caro]: https://github.com/igneus/calendarium-romanum
