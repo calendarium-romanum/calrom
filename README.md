@@ -7,7 +7,9 @@ Built on top of the [calendarium-romanum][caro] Ruby gem.
 
 ## Installation
 
-Coming soon.
+calrom is a Ruby gem:
+
+`gem install calrom`
 
 ## Project roadmap
 

@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Command line utility providing access to the Roman Catholic liturgical calendar (post-Vatican II)'
   spec.homepage      = 'https://github.com/calendarium-romanum/calrom'
+  spec.licenses      = ['GPL-3.0']
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
