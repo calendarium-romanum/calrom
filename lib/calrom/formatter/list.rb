@@ -1,6 +1,6 @@
 module Calrom
   module Formatter
-    class List
+    class List < Formatter
       def call(days)
         days.each do |liturgical_day|
           day liturgical_day
@@ -18,11 +18,13 @@ module Calrom
           end
           print ' '
 
-          print celebration.colour.name[0].upcase
+          colour = celebration.colour
+          rank = celebration.rank
+          print highlighter.colour(colour.name[0].upcase, colour)
           print ' '
-          print celebration.title
+          print highlighter.rank(celebration.title, rank)
           print ',  '
-          print celebration.rank.short_desc
+          print rank.short_desc
           puts
         end
       end
