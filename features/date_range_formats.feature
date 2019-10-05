@@ -18,5 +18,8 @@ Feature: Date range formats
     And the output should match /^5.2012\s+/
 
   Scenario: ISO date
+    When I run `calrom 1992-01-02`
+    Then the exit status should be 0
+    And the output should match /^1992-01-02\s+/
 
   Scenario: range of ISO dates
