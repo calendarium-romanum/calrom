@@ -12,7 +12,7 @@ module Calrom
     end
 
     def formatter
-      Formatter::List.new Highlighter::List.new
+      Formatter::List.new Highlighter::List.new, today
     end
   end
 end

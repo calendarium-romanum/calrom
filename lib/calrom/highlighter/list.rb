@@ -14,6 +14,10 @@ module Calrom
           text
         end
       end
+
+      def today(text)
+        ColorizedString.new(text).colorize(background: :light_black)
+      end
     end
   end
 end
