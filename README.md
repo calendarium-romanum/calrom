@@ -13,6 +13,24 @@ calrom is a Ruby gem:
 
 `gem install calrom`
 
+## Usage
+
+Print liturgical calendar for the current month:
+
+`$ calrom`
+
+... for a specified month of the current year:
+
+`$ calrom -m 9`
+
+... for a specified month of another year:
+
+`$ calrom -m 1 2028`
+
+... for a specified date:
+
+`$ calrom 2028-01-15`
+
 ## Project roadmap
 
 * [ ] detailed listing of a day/month/year/range of dates
