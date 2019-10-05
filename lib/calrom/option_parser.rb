@@ -38,14 +38,11 @@ module Calrom
 
       config.date_range =
         if range_type == :year
-          puts year
-          CR::Util::Year.new(year)
+          Year.new(year)
         elsif range_type == :day
-          puts day
-          [Date.parse(day)]
+          Day.new(Date.parse(day))
         else
-          puts "#{month}/#{year}"
-          CR::Util::Month.new(year, month)
+          Month.new(year, month)
         end
 
       config.freeze

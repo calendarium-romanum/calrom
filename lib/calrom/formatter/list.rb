@@ -1,7 +1,10 @@
 module Calrom
   module Formatter
     class List < Formatter
-      def call(days)
+      def call(days, date_range)
+        puts date_range.to_s
+        puts
+
         days.each do |liturgical_day|
           day liturgical_day
         end

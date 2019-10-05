@@ -8,7 +8,7 @@ module Calrom
 
       attr_reader :highlighter, :today
 
-      def call(days)
+      def call(days, date_range)
       end
     end
   end
