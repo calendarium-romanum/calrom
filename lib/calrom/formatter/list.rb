@@ -24,8 +24,7 @@ module Calrom
           s += highlighter.colour(colour.name[0].upcase, colour) +
                ' ' +
                highlighter.rank(celebration.title, rank) +
-               ',  ' +
-               rank.short_desc
+               (rank.short_desc.nil? ? '' : ',  ' + rank.short_desc)
 
           if liturgical_day.date == today
             s = highlighter.today s
