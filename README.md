@@ -1,5 +1,7 @@
 # calrom
 
+[![Gem Version](https://badge.fury.io/rb/calrom.svg)](https://badge.fury.io/rb/calrom)
+
 Command line utility providing access to the Roman Catholic
 liturgical calendar (post-Vatican II).
 
