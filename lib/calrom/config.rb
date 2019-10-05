@@ -10,5 +10,9 @@ module Calrom
     def calendar
       CR::PerpetualCalendar.new(sanctorale: CR::Data::GENERAL_ROMAN_ENGLISH.load)
     end
+
+    def formatter
+      Formatter::List.new
+    end
   end
 end

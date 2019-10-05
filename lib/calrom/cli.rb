@@ -6,23 +6,13 @@ module Calrom
 
       puts
 
-      config.date_range.each do |date|
-        calendar[date].celebrations.each_with_index do |celebration, i|
-          if i > 0
-            print ' ' * 3
-          else
-            print date.day.to_s.rjust(3)
-          end
-
-          print ' '
-          print celebration.colour.name[0].upcase
-          print ' '
-          print celebration.title
-          print ',  '
-          print celebration.rank.short_desc
-          puts
+      enumerator = Enumerator.new do |yielder|
+        config.date_range.each do |date|
+          yielder.yield calendar[date]
         end
       end
+
+      config.formatter.call enumerator
     end
   end
 end
