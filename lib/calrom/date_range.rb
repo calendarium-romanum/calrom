@@ -14,7 +14,13 @@ module Calrom
 
   class Month < DateRange
     def initialize(year, month)
-      super Date.new(year, month, 1), Date.new(year, month + 1, 1) - 1
+      next_month_beginning =
+        if month == 12
+          Date.new(year + 1, 1, 1)
+        else
+          Date.new(year, month + 1, 1)
+        end
+      super Date.new(year, month, 1), next_month_beginning - 1
     end
 
     def to_s
