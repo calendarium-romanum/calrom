@@ -14,7 +14,7 @@ module Calrom
             current_month = liturgical_day.date.month
 
             puts
-            puts current_month
+            puts liturgical_day.date.strftime('%B') #current_month
             puts
           end
 
@@ -28,9 +28,10 @@ module Calrom
         liturgical_day.celebrations.each_with_index do |celebration, i|
           s =
             if i > 0
-              ' ' * 3
+              ' ' * 6
             else
-              liturgical_day.date.day.to_s.rjust(3)
+              liturgical_day.date.strftime('%a') +
+                liturgical_day.date.day.to_s.rjust(3)
             end
           s += ' '
 
