@@ -1,8 +1,13 @@
 module Calrom
   module Highlighter
     class List
+      COLOUR_OVERRIDE = {
+        # 'colorize' does not know colour :violet
+        CR::Colours::VIOLET => :magenta,
+      }
+
       def colour(text, colour)
-        ColorizedString.new(text).colorize(colour.symbol)
+        ColorizedString.new(text).colorize(COLOUR_OVERRIDE[colour] || colour.symbol)
       end
 
       def rank(text, rank)
