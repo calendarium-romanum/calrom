@@ -15,7 +15,9 @@ module Calrom
 
       opt_parser = ::OptionParser.new do |opts|
         # for now does nothing, is default
-        opts.on('-l', '--list', 'list mode')
+        opts.on('-l', '--list', 'list mode') do
+          config.formatter = :list
+        end
 
         opts.on('-mMONTH', '--month=MONTH', 'which month to list') do |value|
           range_type = :month

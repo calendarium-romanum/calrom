@@ -1,7 +1,7 @@
 module Calrom
   module Formatter
     class List < Formatter
-      def call(days, date_range)
+      def call(calendar, date_range)
         print_months = date_range.first.month != date_range.last.month
 
         puts date_range.to_s
@@ -9,7 +9,9 @@ module Calrom
 
         current_month = nil
 
-        days.each do |liturgical_day|
+        date_range.each do |date|
+          liturgical_day = calendar[date]
+
           if print_months && liturgical_day.date.month != current_month
             current_month = liturgical_day.date.month
 

@@ -10,6 +10,10 @@ module Calrom
     def to_s
       first.year.to_s
     end
+
+    def each_month
+      1.upto(12) {|month| yield Month.new(first.year, month) }
+    end
   end
 
   class Month < DateRange
@@ -26,6 +30,10 @@ module Calrom
     def to_s
       "#{first.month}/#{first.year}"
     end
+
+    def each_month
+      yield self
+    end
   end
 
   class Day < DateRange
@@ -35,6 +43,10 @@ module Calrom
 
     def to_s
       first.to_s
+    end
+
+    def each_month
+      yield self
     end
   end
 end
