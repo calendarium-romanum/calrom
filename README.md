@@ -11,7 +11,7 @@ Built on top of the [calendarium-romanum][caro] Ruby gem.
 
 calrom is a Ruby gem:
 
-`gem install calrom`
+`$ gem install calrom`
 
 ## Usage
 
@@ -26,6 +26,10 @@ Print liturgical calendar for the current month:
 ... for a specified month of another year:
 
 `$ calrom -m 1 2028`
+
+... for a whole year:
+
+`$ calrom 2017`
 
 ... for a specified date:
 
