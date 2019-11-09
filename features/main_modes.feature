@@ -14,7 +14,7 @@ Feature: Main modes
     Then the exit status should be 0
     # there are some days
     And the output should contain "1 "
-    And the output should contain "31 "
+    And the output should contain "29 "
     # there are some saints, in English
     And the output should contain "Saint"
     # there are some ranks
