@@ -8,6 +8,9 @@ Feature: Main modes
     Then the exit status should be 0
 
   Scenario: Run in overview mode
+    When I run `calrom`
+    Then the exit status should be 0
+    And the output should contain "Su Mo Tu We Th Fr Sa"
 
   Scenario: Run in detailed listing mode
     When I run `calrom -l`
