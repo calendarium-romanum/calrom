@@ -2,8 +2,10 @@ module Calrom
   module Formatter
     class Overview < Formatter
       def call(calendar, date_range)
-        puts date_range.to_s
-        puts
+        if date_range.is_a? Year
+          puts date_range.to_s
+          puts
+        end
 
         date_range.each_month do |month|
           puts month
