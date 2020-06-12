@@ -14,7 +14,6 @@ module Calrom
       range_type = nil
 
       opt_parser = ::OptionParser.new do |opts|
-        # for now does nothing, is default
         opts.on('-l', '--list', 'list mode') do
           config.formatter = :list
         end
