@@ -35,6 +35,14 @@ Print liturgical calendar for the current month:
 
 `$ calrom 2028-01-15`
 
+## Running tests
+
+Clone the repository, `$ bundle install` to install dependencies, then:
+
+`$ rake cucumber` - run specs describing the command line interface
+
+`$ rake spec` - run specs describing internal implementation details
+
 ## Project roadmap
 
 * [ ] detailed listing of a day/month/year/range of dates
