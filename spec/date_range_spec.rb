@@ -1,6 +1,58 @@
 require 'spec_helper'
 
 describe 'date ranges' do
+  describe Calrom::DateRange do
+    describe '#each_month' do
+      it 'one month' do
+        d = Date.new 2000, 1, 1
+        expect(described_class.new(d, d+30).each_month.to_a)
+          .to eq [Calrom::Month.new(2000, 1)]
+      end
+
+      it 'two months' do
+        range = described_class.new(Date.new(2000, 1, 1), Date.new(2000, 2, 29))
+        expect(range.each_month.to_a)
+          .to eq [Calrom::Month.new(2000, 1), Calrom::Month.new(2000, 2)]
+      end
+
+      it 'two months at the end of a year' do
+        range = described_class.new(Date.new(2000, 12, 1), Date.new(2001, 1, 31))
+        expect(range.each_month.to_a)
+          .to eq [Calrom::Month.new(2000, 12), Calrom::Month.new(2001, 1)]
+      end
+
+      it 'two months at the end of a year' do
+        range = described_class.new(Date.new(2000, 1, 1), Date.new(2002, 2, 5))
+        expect(range.each_month.to_a.size).to be 26
+      end
+
+      it 'incomplete first month' do
+        range = described_class.new(Date.new(2000, 1, 30), Date.new(2000, 2, 29))
+        expect(range.each_month.to_a)
+          .to eq([
+                   Calrom::DateRange.new(Date.new(2000, 1, 30), Date.new(2000, 1, 31)),
+                   Calrom::Month.new(2000, 2)
+                 ])
+      end
+
+      it 'incomplete last month' do
+        range = described_class.new(Date.new(2000, 1, 1), Date.new(2000, 2, 5))
+        expect(range.each_month.to_a)
+          .to eq([
+                   Calrom::Month.new(2000, 1),
+                   Calrom::DateRange.new(Date.new(2000, 2, 1), Date.new(2000, 2, 5))
+                 ])
+      end
+
+      it 'incomplete single month' do
+        d = Date.new 2000, 1, 5
+        range = described_class.new(d, d+1)
+        expect(range.each_month.to_a)
+          .to eq [range]
+      end
+    end
+  end
+
   describe Calrom::Month do
     1.upto(12) do |i|
       it "supports month #{i}" do

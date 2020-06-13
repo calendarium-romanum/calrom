@@ -17,6 +17,7 @@ module Calrom
       year = today.year
       month = today.month
       day = nil
+      another_day = nil
 
       range_type = nil
 
@@ -33,10 +34,17 @@ module Calrom
 
       arguments = opt_parser.parse argv
 
+      iso_date_regexp = /^(\d{4}-\d{2}-\d{2})$/
       match(arguments) do
-        with(_[/^(\d{4}-\d{2}-\d{2})$/.(date)]) do
+        with(_[iso_date_regexp.(date)]) do
           range_type = :day
           day = date
+        end
+
+        with(_[iso_date_regexp.(date), iso_date_regexp.(another_date)]) do
+          range_type = :free
+          day = date
+          another_day = another_date
         end
 
         with(_[y]) do
@@ -61,7 +69,8 @@ module Calrom
           range_type,
           validate_year(year),
           validate_month(month),
-          day && validate_day(day)
+          day && validate_day(day),
+          another_day && validate_day(another_day)
         )
 
       config.freeze
@@ -92,12 +101,15 @@ module Calrom
       raise InputError.new("not a valid date #{day}")
     end
 
-    def build_date_range(range_type, year, month, day)
+    def build_date_range(range_type, year, month, day, another_day=nil)
       range =
-        if range_type == :year
+        case range_type
+        when :year
           Year.new(year)
-        elsif range_type == :day
+        when :day
           Day.new(day)
+        when :free
+          DateRange.new(day, another_day)
         else
           Month.new(year, month)
         end

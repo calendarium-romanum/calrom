@@ -36,3 +36,6 @@ Feature: Date range formats
     And the output should match /^1992-01-02\s+/
 
   Scenario: range of ISO dates
+    When I run `calrom 1992-01-02 1992-05-12`
+    Then the exit status should be 0
+    And the output should match /^\s+January 1992\s+February 1992/
