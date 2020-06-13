@@ -1,5 +1,6 @@
 # calrom
 
+[![Build Status](https://travis-ci.org/calendarium-romanum/calrom.svg?branch=master)](https://travis-ci.org/calendarium-romanum/calrom)
 [![Gem Version](https://badge.fury.io/rb/calrom.svg)](https://badge.fury.io/rb/calrom)
 
 Command line utility providing access to the Roman Catholic
