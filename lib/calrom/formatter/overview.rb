@@ -8,12 +8,8 @@ module Calrom
         end
 
         date_range.each_month do |month|
-          if date_range.is_a? Year
-            puts month.first.strftime '%B'
-          else
-            puts month
-          end
-          puts
+          heading = month.first.strftime(date_range.is_a?(Year) ? '%B' : '%B %Y')
+          puts center_on weekdays.size, heading
 
           puts weekdays
 
@@ -46,11 +42,20 @@ module Calrom
 
       # localizable 2-character weekday shortcuts
       def weekdays
-        sunday = Date.new 1987, 10, 25
-        sunday
-          .upto(sunday + 6)
-          .collect {|d| d.strftime('%a')[0..1] }
-          .join(' ')
+        @weekdays ||=
+          begin
+            sunday = Date.new 1987, 10, 25
+            sunday
+              .upto(sunday + 6)
+              .collect {|d| d.strftime('%a')[0..1] }
+              .join(' ')
+          end
+      end
+
+      # centers given string on a given line length
+      def center_on(line_length, content)
+        (' ' * (line_length / 2 - content.size / 2)) +
+          content
       end
     end
   end
