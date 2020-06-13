@@ -8,6 +8,12 @@ Then(/^the output should contain (\d+) to (\d+) day entries$/) do |from, to|
   expect(day_entries.size).to be_between(from.to_i, to.to_i)
 end
 
-Then(/^the output should mention some feasts of saints$/) do
+Then('the output should mention some feasts of saints') do
   expect(last_command_started.stdout).to include 'Saint'
+end
+
+Then('the stderr should not contain traceback') do
+  output = last_command_started.stderr
+
+  expect(output).not_to match /^\s+from .+?:\d+:in `.+?'/
 end
