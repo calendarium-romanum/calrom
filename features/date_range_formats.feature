@@ -12,9 +12,20 @@ Feature: Date range formats
     Then the exit status should be 0
     And the output should match /^5.\d{4}/
 
-  Scenario: cal-like - month and year
+  Scenario: cal-like - month option and year
     When I run `calrom -m 5 2012`
     Then the exit status should be 0
+    And the output should match /^5.2012\s+/
+
+  Scenario: cal-like - month argument and year
+    When I run `calrom 5 2012`
+    Then the exit status should be 0
+    And the output should match /^5.2012\s+/
+
+  Scenario: cal-like - month option, month argument and year
+    When I run `calrom -m 4 5 2012`
+    Then the exit status should be 0
+    # argument wins over the option, just like with `cal`
     And the output should match /^5.2012\s+/
 
   Scenario: ISO date

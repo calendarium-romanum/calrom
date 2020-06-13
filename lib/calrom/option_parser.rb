@@ -31,6 +31,9 @@ module Calrom
         if arg =~ /^\d{4}-\d{2}-\d{2}$/
           range_type = :day
           day = arg
+        elsif arguments.size == 2
+          range_type = :month
+          month, year = arguments.collect(&:to_i)
         else
           range_type ||= :year
           year = arg.to_i
