@@ -26,7 +26,7 @@ Print liturgical calendar for the current month:
 
 ... for a specified month of another year:
 
-`$ calrom -m 1 2028`
+`$ calrom -m 1 2028` or `$ calrom 1 2028`
 
 ... for a whole year:
 
@@ -35,6 +35,10 @@ Print liturgical calendar for the current month:
 ... for a specified date:
 
 `$ calrom 2028-01-15`
+
+Print detailed output (default for single date, opt-in for month and year view):
+
+`$ calrom -l 2017`
 
 ## Running tests
 
