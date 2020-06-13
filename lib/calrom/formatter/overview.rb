@@ -11,7 +11,7 @@ module Calrom
           puts month
           puts
 
-          puts 'Su Mo Tu We Th Fr Sa'
+          puts weekdays
 
           print '   ' * month.first.wday
           month.each do |date|
@@ -36,6 +36,17 @@ module Calrom
           puts if month.last.wday != 6 # prevent double blank line
           puts
         end
+      end
+
+      private
+
+      # localizable 2-character weekday shortcuts
+      def weekdays
+        sunday = Date.new 1987, 10, 25
+        sunday
+          .upto(sunday + 6)
+          .collect {|d| d.strftime('%a')[0..1] }
+          .join(' ')
       end
     end
   end

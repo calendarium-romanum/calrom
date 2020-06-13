@@ -28,7 +28,7 @@ module Calrom
     end
 
     def to_s
-      "#{first.month}/#{first.year}"
+      first.strftime '%B %Y'
     end
 
     def each_month
