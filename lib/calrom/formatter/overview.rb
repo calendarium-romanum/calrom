@@ -8,7 +8,11 @@ module Calrom
         end
 
         date_range.each_month do |month|
-          puts month
+          if date_range.is_a? Year
+            puts month.first.strftime '%B'
+          else
+            puts month
+          end
           puts
 
           puts weekdays

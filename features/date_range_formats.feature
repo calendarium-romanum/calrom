@@ -6,6 +6,8 @@ Feature: Date range formats
     When I run `calrom 2000`
     Then the exit status should be 0
     And the output should match /^2000\s+/
+    # year is not repeated in every month heading when printing whole year (like `cal`)
+    And the output should match /^January$.+?^December$/
 
   Scenario: cal-like - month
     When I run `calrom -m 5`
@@ -25,7 +27,7 @@ Feature: Date range formats
   Scenario: cal-like - month option, month argument and year
     When I run `calrom -m 4 5 2012`
     Then the exit status should be 0
-    # argument wins over the option, just like with `cal`
+    # argument wins over the option (like `cal`)
     And the output should match /^May 2012\s+/
 
   Scenario: ISO date
