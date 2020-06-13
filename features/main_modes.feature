@@ -13,3 +13,8 @@ Feature: Main modes
     Then the exit status should be 0
     And the output should contain 29 to 31 day entries
     And the output should mention some feasts of saints
+
+  Scenario: For a single day use detailed listing mode by default
+    When I run `calrom 2000-01-01`
+    Then the exit status should be 0
+    And the output should contain 1 to 1 day entries
