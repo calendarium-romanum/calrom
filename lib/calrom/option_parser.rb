@@ -26,13 +26,15 @@ module Calrom
           config.formatter = :list
         end
 
+        # cal
+        opts.on('-e', '--easter', 'display date of Easter') do
+          config.formatter = :easter
+        end
+
+        # cal
         opts.on('-mMONTH', '--month=MONTH', 'which month to list') do |value|
           range_type = :month
           month = value
-        end
-
-        opts.on('-e', '--easter', 'display date of Easter') do
-          config.formatter = :easter
         end
       end
 
