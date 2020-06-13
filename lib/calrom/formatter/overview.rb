@@ -11,7 +11,7 @@ module Calrom
           puts month
           puts
 
-          puts %w(Su Mo Tu We Th Fr Sa).join(' ')
+          puts 'Su Mo Tu We Th Fr Sa'
 
           print '   ' * month.first.wday
           month.each do |date|
