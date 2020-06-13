@@ -14,6 +14,8 @@ module Calrom
     def formatter
       if @formatter == :list || (@formatter.nil? && date_range.is_a?(Day))
         Formatter::List.new Highlighter::List.new, today
+      elsif @formatter == :easter
+        Formatter::Easter.new
       else
         Formatter::Overview.new Highlighter::Overview.new, today
       end

@@ -30,6 +30,10 @@ module Calrom
           range_type = :month
           month = value
         end
+
+        opts.on('-e', '--easter', 'display date of Easter') do
+          config.formatter = :easter
+        end
       end
 
       arguments = opt_parser.parse argv

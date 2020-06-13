@@ -18,3 +18,8 @@ Feature: Main modes
     When I run `calrom 2000-01-01`
     Then the exit status should be 0
     And the output should contain 1 to 1 day entries
+
+  Scenario: date of Easter
+    When I run `calrom -e 2000`
+    Then the exit status should be 0
+    And the output should contain exactly "04/23/00"
