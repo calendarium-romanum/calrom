@@ -31,3 +31,8 @@ Feature: Handling input errors
     When I run `calrom -k`
     Then the exit status should be 1
     And the stderr should contain "invalid option: -k"
+
+  Scenario: unexpected argument
+    When I run `calrom 1 2000 3`
+    Then the exit status should be 1
+    And the stderr should contain "too many arguments"

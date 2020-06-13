@@ -1,8 +1,11 @@
 require 'optparse'
+require 'pattern-match'
 
 module Calrom
   # Parses command line options, produces Config.
   class OptionParser
+    using PatternMatch
+
     def self.call(argv)
       self.new.call(argv)
     end
@@ -30,17 +33,26 @@ module Calrom
 
       arguments = opt_parser.parse argv
 
-      if arguments.size > 0
-        arg = arguments[0]
-        if arg =~ /^\d{4}-\d{2}-\d{2}$/
+      match(arguments) do
+        with(_[/^(\d{4}-\d{2}-\d{2})$/.(date)]) do
           range_type = :day
-          day = arg
-        elsif arguments.size == 2
-          range_type = :month
-          month, year = arguments
-        else
+          day = date
+        end
+
+        with(_[y]) do
           range_type ||= :year
-          year = arg
+          year = y
+        end
+
+        with(_[m, y]) do
+          range_type = :month
+          month, year = m, y
+        end
+
+        with([]) {}
+
+        with(_) do
+          raise InputError.new('too many arguments')
         end
       end
 
