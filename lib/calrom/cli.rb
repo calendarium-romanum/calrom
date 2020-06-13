@@ -3,7 +3,7 @@ module Calrom
     def self.call(argv)
       begin
         config = OptionParser.call argv
-      rescue InputError => e
+      rescue ::OptionParser::InvalidOption, InputError => e
         STDERR.puts e.message
         exit 1
       end

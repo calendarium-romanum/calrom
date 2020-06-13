@@ -26,3 +26,8 @@ Feature: Handling input errors
     When I run `calrom 1968`
     Then the exit status should be 1
     And the stderr should contain "implemented calendar system in use only since 1970-01-01"
+
+  Scenario: unexpected option
+    When I run `calrom -k`
+    Then the exit status should be 1
+    And the stderr should contain "invalid option: -k"
