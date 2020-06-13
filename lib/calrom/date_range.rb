@@ -12,6 +12,8 @@ module Calrom
     end
 
     def each_month
+      return to_enum(:each_month) unless block_given?
+
       1.upto(12) {|month| yield Month.new(first.year, month) }
     end
   end
@@ -32,6 +34,8 @@ module Calrom
     end
 
     def each_month
+      return to_enum(:each_month) unless block_given?
+
       yield self
     end
   end

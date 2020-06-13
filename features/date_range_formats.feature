@@ -5,9 +5,9 @@ Feature: Date range formats
   Scenario: cal-like - year
     When I run `calrom 2000`
     Then the exit status should be 0
-    And the output should match /^2000\s+/
+    And the output should match /^\s+2000\s+/
     # year is not repeated in every month heading when printing whole year (like `cal`)
-    And the output should match /^\s+January$.+?^\s+December$/
+    And the output should match /^\s+January\s+February\s+March.+?December/
 
   Scenario: cal-like - month
     When I run `calrom -m 5`
