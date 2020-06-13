@@ -43,6 +43,8 @@ Clone the repository, `$ bundle install` to install dependencies, then:
 
 `$ rake spec` - run specs describing internal implementation details
 
+`$ rake` - run all groups of specs one after another
+
 ## Project roadmap
 
 * [ ] detailed listing of a day/month/year/range of dates

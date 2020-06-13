@@ -6,4 +6,5 @@ RSpec::Core::RakeTask.new(:spec)
 
 Cucumber::Rake::Task.new
 
-task :default => :spec
+desc 'runs all tests'
+task :default => [:spec, :cucumber]
