@@ -46,6 +46,11 @@ module Calrom
         opts.on('-d YM', '--current-month=YM', 'use given month (YYYY-MM) as the current month (for debugging of date range selection)') do |value|
           year, month = value.split '-'
         end
+
+        opts.on(nil, '--version', 'display calrom version') do
+          puts 'calrom v' + Calrom::VERSION
+          exit
+        end
       end
 
       arguments = opt_parser.parse argv
