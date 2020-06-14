@@ -43,6 +43,11 @@ module Calrom
         end
 
         # cal
+        opts.on('-y', '--year', 'display specified (or current) year') do |value|
+          range_type = :year
+        end
+
+        # cal
         opts.on('-d YM', '--current-month=YM', 'use given month (YYYY-MM) as the current month (for debugging of date range selection)') do |value|
           year, month = value.split '-'
         end
