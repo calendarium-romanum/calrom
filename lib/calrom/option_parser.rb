@@ -47,8 +47,20 @@ module Calrom
           year, month = value.split '-'
         end
 
-        opts.on(nil, '--version', 'display calrom version') do
+        # cal
+        opts.on('-H DATE', '--highlight-date=DATE', 'use given date as the current date (for debugging of highlighting') do |value|
+          config.today = validate_day value
+        end
+
+        opts.on_tail(nil, '--version', 'display calrom version') do
           puts 'calrom v' + Calrom::VERSION
+          exit
+        end
+
+        # Normally optparse defines this option by default, but once -H option is added,
+        # for some reason -h (if not defined explicitly) is treated as -H.
+        opts.on_tail('-h', '--help', 'display this help') do
+          puts opts
           exit
         end
       end
