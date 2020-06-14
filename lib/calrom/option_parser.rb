@@ -57,6 +57,10 @@ module Calrom
           config.today = validate_day value
         end
 
+        opts.on(nil, '--[no-]color', 'enable/disable colours (enabled by default)') do |value|
+          config.colours = value
+        end
+
         opts.on_tail(nil, '--version', 'display calrom version') do
           puts 'calrom v' + Calrom::VERSION
           exit

@@ -15,5 +15,17 @@ end
 Then('the stderr should not contain traceback') do
   output = last_command_started.stderr
 
-  expect(output).not_to match /^\s+from .+?:\d+:in `.+?'/
+  expect(last_command_started.stdout).not_to match /^\s+from .+?:\d+:in `.+?'/
+end
+
+Then(/^the output should contain (some|no) colour codes$/) do |value|
+  colours_reset = "\u001b[0m"
+
+  if value == 'some'
+    expect(last_command_started.stdout).to include colours_reset
+  elsif value == 'no'
+    expect(last_command_started.stdout).not_to include colours_reset
+  else
+    raise 'unexpected'
+  end
 end
