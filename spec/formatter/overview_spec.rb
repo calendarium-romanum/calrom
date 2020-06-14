@@ -3,13 +3,8 @@ require 'spec_helper'
 describe Calrom::Formatter::Overview do
   describe 'formatting a single whole month' do
     let(:calendar) { CalendariumRomanum::PerpetualCalendar.new }
-    let(:highlighter) { Calrom::Highlighter::Overview.new }
+    let(:highlighter) { Calrom::Highlighter::No.new }
     let(:range) { Calrom::Month.new 2020, 6 }
-
-    before do
-      # TODO: don't touch global configuration, use "null highlighter" instead
-      ColorizedString.disable_colorization = true
-    end
 
     it 'produces expected layout' do
       io = StringIO.new
