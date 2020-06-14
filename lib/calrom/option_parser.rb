@@ -32,9 +32,19 @@ module Calrom
         end
 
         # cal
-        opts.on('-mMONTH', '--month=MONTH', 'which month to list') do |value|
+        opts.on('-m MONTH', '--month=MONTH', 'display the specified month. \'f\' or \'p\' can be appended to display the same month of the following or previous year respectively') do |value|
           range_type = :month
-          month = value
+          if value =~ /^(\d+)([pf])$/
+            month = $1
+            year = validate_year(year) + ($2 == 'f' ? 1 : -1)
+          else
+            month = value
+          end
+        end
+
+        # cal
+        opts.on('-d YM', '--current-month=YM', 'use given month (YYYY-MM) as the current month (for debugging of date range selection)') do |value|
+          year, month = value.split '-'
         end
       end
 
