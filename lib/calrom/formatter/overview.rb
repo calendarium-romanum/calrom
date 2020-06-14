@@ -4,10 +4,10 @@ require 'stringio'
 module Calrom
   module Formatter
     class Overview < Formatter
-      def call(calendar, date_range)
+      def call(calendar, date_range, io = STDOUT)
         colnum = (date_range.is_a?(Year) || date_range.each_month.to_a.size > 3) ? 3 : 1 # TODO: expose configuration
         if date_range.is_a? Year
-          puts center_on(weekdays.size * colnum + 2 * (colnum - 1), date_range.to_s)
+          io.puts center_on(weekdays.size * colnum + 2 * (colnum - 1), date_range.to_s)
         end
 
         date_range.each_month.each_slice(colnum) do |months|
@@ -16,7 +16,7 @@ module Calrom
               print_month io, calendar, month, date_range.is_a?(Year)
             end
           end
-          print_columns columns
+          print_columns columns, io
         end
       end
 
@@ -67,7 +67,7 @@ module Calrom
           content
       end
 
-      def print_columns(columns)
+      def print_columns(columns, io)
         line_enumerators = columns.collect {|c| c.string.each_line }
         not_yet_exhausted = Set.new line_enumerators
         column_width = weekdays.size
@@ -78,15 +78,15 @@ module Calrom
           line_enumerators.each do |l|
             begin
               line = l.next.chop
-              print line
-              print ' ' * (column_width - colour_aware_size(line))
+              io.print line
+              io.print ' ' * (column_width - colour_aware_size(line))
             rescue StopIteration
-              print ' ' * column_width
+              io.print ' ' * column_width
               not_yet_exhausted.delete l
             end
-            print '  '
+            io.print '  '
           end
-          puts
+          io.puts
         end
       end
 
