@@ -5,10 +5,15 @@ module Calrom
       self.date_range = Month.new(today.year, today.month)
     end
 
-    attr_accessor :today, :date_range, :formatter, :colours
+    attr_accessor :today, :date_range, :formatter, :colours, :sanctorale
 
     def calendar
-      CR::PerpetualCalendar.new(sanctorale: CR::Data::GENERAL_ROMAN_ENGLISH.load)
+      CR::PerpetualCalendar.new(sanctorale: build_sanctorale)
+    end
+
+    def build_sanctorale
+      bundled = CR::Data[@sanctorale]
+      @sanctorale ? bundled.load : CR::Data::GENERAL_ROMAN_ENGLISH.load
     end
 
     def formatter
@@ -16,6 +21,8 @@ module Calrom
         Formatter::List.new highlighter(Highlighter::List), today
       elsif @formatter == :easter
         Formatter::Easter.new
+      elsif @formatter == :calendars
+        Formatter::Calendars.new highlighter(Highlighter::Overview), today
       else
         Formatter::Overview.new highlighter(Highlighter::Overview), today
       end

@@ -57,6 +57,14 @@ module Calrom
           config.today = validate_day value
         end
 
+        opts.on('-c CAL', '--calendar=CAL', 'specify (sanctorale) calendar to use') do |value|
+          config.sanctorale = validate_sanctorale value
+        end
+
+        opts.on(nil, '--calendars', 'list bundled calendars') do |value|
+          config.formatter = :calendars
+        end
+
         opts.on(nil, '--[no-]color', 'enable/disable colours (enabled by default)') do |value|
           config.colours = value
         end
@@ -162,6 +170,17 @@ module Calrom
       end
 
       range
+    end
+
+    def validate_sanctorale(siglum)
+      bundled = CR::Data[siglum]
+      if bundled.nil?
+        raise InputError.new "\"#{siglum}\" is not a valid identifier of a bundled data file. " +
+                             "Valid identifiers are: " +
+                             CR::Data.each.collect(&:siglum).inspect
+      end
+
+      siglum
     end
   end
 end
