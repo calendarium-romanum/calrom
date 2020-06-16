@@ -78,10 +78,30 @@ describe Calrom::OptionParser do
       expect(range.first).to eq(Date.today + 1)
     end
 
-    describe 'conflicting options' do
-      it 'later wins - year'
+    describe 'conflicting range type options' do
+      it 'later wins - year' do
+        range = described_class.(%w(-m 1 -y)).date_range
+        expect(range).to be_a Calrom::Year
+      end
 
-      it 'later wins - month'
+      it 'later wins - month' do
+        range = described_class.(%w(-y -m 1)).date_range
+        expect(range).to be_a Calrom::Month
+      end
+
+      it 'option wins over argument - date over year' do
+        range = described_class.(%w(--today 1900)).date_range
+        expect(range).to be_a Calrom::Day
+        expect(range.first).to eq Date.today
+      end
+
+      # TODO usually option wins over argument (like in cal) and I'm not sure if this
+      # exception is tolerable. Maybe a new option like -m and -y should be added to force day
+      # and date argument should not win over the last date range option.
+      it 'date argument wins over month option' do
+        range = described_class.(%w(-m 1 2000-01-01)).date_range
+        expect(range).to be_a Calrom::Day
+      end
     end
 
     describe 'debugging options' do
