@@ -61,6 +61,21 @@ module Calrom
           config.sanctorale = validate_sanctorale value
         end
 
+        opts.on(nil, '--yesterday', 'display previous day') do |value|
+          day = Date.today - 1
+          range_type = :day
+        end
+
+        opts.on(nil, '--today', 'display current day') do |value|
+          day = Date.today
+          range_type = :day
+        end
+
+        opts.on(nil, '--tomorrow', 'display following day') do |value|
+          day = Date.today + 1
+          range_type = :day
+        end
+
         opts.on(nil, '--calendars', 'list bundled calendars') do |value|
           config.formatter = :calendars
         end
@@ -146,6 +161,8 @@ module Calrom
     end
 
     def validate_day(day)
+      return day if day.is_a? Date
+
       Date.parse(day)
     rescue ArgumentError
       raise InputError.new("not a valid date #{day}")

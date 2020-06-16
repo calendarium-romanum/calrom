@@ -60,6 +60,30 @@ describe Calrom::OptionParser do
       expect(range).to eq Calrom::Month.new(2000, 5)
     end
 
+    it 'yesterday' do
+      range = described_class.(%w(--yesterday)).date_range
+      expect(range).to be_a Calrom::Day
+      expect(range.first).to eq(Date.today - 1)
+    end
+
+    it 'today' do
+      range = described_class.(%w(--today)).date_range
+      expect(range).to be_a Calrom::Day
+      expect(range.first).to eq Date.today
+    end
+
+    it 'tomorrow' do
+      range = described_class.(%w(--tomorrow)).date_range
+      expect(range).to be_a Calrom::Day
+      expect(range.first).to eq(Date.today + 1)
+    end
+
+    describe 'conflicting options' do
+      it 'later wins - year'
+
+      it 'later wins - month'
+    end
+
     describe 'debugging options' do
       it '"current" month (specified by a debugging option -d)' do
         range = described_class.(%w(-d 2000-01)).date_range
