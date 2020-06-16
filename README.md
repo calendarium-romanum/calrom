@@ -16,7 +16,9 @@ calrom is a Ruby gem:
 
 ## Usage
 
-Print liturgical calendar for the current month:
+### Specifying date range
+
+Print liturgical calendar for the current month (default):
 
 `$ calrom`
 
@@ -32,13 +34,27 @@ Print liturgical calendar for the current month:
 
 `$ calrom 2017`
 
+... for the current year:
+
+`$ calrom -y`
+
 ... for a specified date:
 
 `$ calrom 2028-01-15`
 
-Print detailed output (default for single date, opt-in for month and year view):
+... for an arbitrary date range:
 
-`$ calrom -l 2017`
+`$ calrom 2028-01-15 2028-03-07`
+
+### Data presentation settings
+
+Print detailed listing:
+
+`$ calrom -l`
+
+Disable colours:
+
+`$ calrom --no-color`
 
 ## Running tests
 
