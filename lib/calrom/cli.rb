@@ -10,6 +10,8 @@ module Calrom
 
       calendar = config.calendar
 
+      I18n.locale = config.locale
+
       config.formatter.call calendar, config.date_range
     end
   end

@@ -1,12 +1,14 @@
 module Calrom
   class Config
+    DEFAULT_DATA = CR::Data::GENERAL_ROMAN_ENGLISH
+
     def initialize
       self.today = Date.today
       self.date_range = Month.new(today.year, today.month)
       self.sanctorale = []
     end
 
-    attr_accessor :today, :date_range, :formatter, :colours, :sanctorale
+    attr_accessor :today, :date_range, :formatter, :colours, :sanctorale, :locale
 
     def calendar
       CR::PerpetualCalendar.new(sanctorale: build_sanctorale)
@@ -14,12 +16,17 @@ module Calrom
 
     def build_sanctorale
       if @sanctorale.empty?
-        return CR::Data::GENERAL_ROMAN_ENGLISH.load
+        return DEFAULT_DATA.load
       end
 
       data = @sanctorale.collect {|siglum| CR::Data[siglum].load }
 
       CR::SanctoraleFactory.create_layered(*data)
+    end
+
+    def locale
+      @locale ||
+        (sanctorale.last || DEFAULT_DATA.siglum).split('-').last.to_sym
     end
 
     def formatter

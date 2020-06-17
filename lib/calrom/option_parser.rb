@@ -80,6 +80,10 @@ module Calrom
           config.formatter = :calendars
         end
 
+        opts.on('--locale LOCALE', 'override language in which temporale celebration titles are rendered') do |value|
+          config.locale = value.to_sym
+        end
+
         opts.on(nil, '--[no-]color', 'enable/disable colours (enabled by default)') do |value|
           config.colours = value
         end
