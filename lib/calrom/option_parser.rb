@@ -61,30 +61,30 @@ module Calrom
           config.sanctorale << validate_sanctorale(value)
         end
 
-        opts.on(nil, '--yesterday', 'display previous day') do |value|
+        opts.on('--yesterday', 'display previous day') do |value|
           day = Date.today - 1
           range_type = :day
         end
 
-        opts.on(nil, '--today', 'display current day') do |value|
+        opts.on('--today', 'display current day') do |value|
           day = Date.today
           range_type = :day
         end
 
-        opts.on(nil, '--tomorrow', 'display following day') do |value|
+        opts.on('--tomorrow', 'display following day') do |value|
           day = Date.today + 1
           range_type = :day
         end
 
-        opts.on(nil, '--calendars', 'list bundled calendars') do |value|
+        opts.on('--calendars', 'list bundled calendars') do |value|
           config.formatter = :calendars
         end
 
-        opts.on('--locale LOCALE', 'override language in which temporale celebration titles are rendered') do |value|
+        opts.on('--locale=LOCALE', 'override language in which temporale celebration titles are rendered') do |value|
           config.locale = value.to_sym
         end
 
-        opts.on(nil, '--[no-]color', 'enable/disable colours (enabled by default)') do |value|
+        opts.on('--[no-]color', 'enable/disable colours (enabled by default)') do |value|
           config.colours = value
         end
 
