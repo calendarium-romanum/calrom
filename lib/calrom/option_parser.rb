@@ -84,7 +84,7 @@ module Calrom
           config.colours = value
         end
 
-        opts.on_tail(nil, '--version', 'display calrom version') do
+        opts.on_tail('-V', '--version', 'display calrom version') do
           puts 'calrom v' + Calrom::VERSION
           exit
         end

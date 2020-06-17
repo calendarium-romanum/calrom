@@ -13,6 +13,11 @@ Feature: Help
     And the output should contain "Usage: calrom [options]"
 
   Scenario: program version
+    When I run `calrom -V`
+    Then the exit status should be 0
+    And the output should match /calrom v\d+\.\d+.\d+/
+
+  Scenario: program version
     When I run `calrom --version`
     Then the exit status should be 0
     And the output should match /calrom v\d+\.\d+.\d+/
