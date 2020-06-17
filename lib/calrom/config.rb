@@ -42,7 +42,7 @@ module Calrom
     end
 
     def highlighter(colourful)
-      if self.colours == false
+      if (self.colours == false || (self.colours.nil? && !STDOUT.isatty))
         return Highlighter::No.new
       end
 
