@@ -3,6 +3,7 @@ module Calrom
     def initialize
       self.today = Date.today
       self.date_range = Month.new(today.year, today.month)
+      self.sanctorale = []
     end
 
     attr_accessor :today, :date_range, :formatter, :colours, :sanctorale
@@ -12,8 +13,13 @@ module Calrom
     end
 
     def build_sanctorale
-      bundled = CR::Data[@sanctorale]
-      @sanctorale ? bundled.load : CR::Data::GENERAL_ROMAN_ENGLISH.load
+      if @sanctorale.empty?
+        return CR::Data::GENERAL_ROMAN_ENGLISH.load
+      end
+
+      data = @sanctorale.collect {|siglum| CR::Data[siglum].load }
+
+      CR::SanctoraleFactory.create_layered(*data)
     end
 
     def formatter

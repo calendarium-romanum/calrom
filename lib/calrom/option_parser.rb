@@ -57,8 +57,8 @@ module Calrom
           config.today = validate_day value
         end
 
-        opts.on('-c CAL', '--calendar=CAL', 'specify (sanctorale) calendar to use') do |value|
-          config.sanctorale = validate_sanctorale value
+        opts.on('-c CAL', '--calendar=CAL', 'specify (sanctorale) calendar to use. If repeated, layers all specified calendars one over another') do |value|
+          config.sanctorale << validate_sanctorale(value)
         end
 
         opts.on(nil, '--yesterday', 'display previous day') do |value|
