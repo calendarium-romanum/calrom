@@ -53,7 +53,7 @@ module Calrom
         end
 
         # cal
-        opts.on('-H DATE', '--highlight-date=DATE', 'use given date as the current date (for debugging of highlighting') do |value|
+        opts.on('-H DATE', '--highlight-date=DATE', 'use given date as the current date (for debugging of highlighting)') do |value|
           config.today = validate_day value
         end
 
