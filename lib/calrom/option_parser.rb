@@ -181,7 +181,7 @@ module Calrom
           Month.new(year, month)
         end
 
-      beginning = CalendariumRomanum::Calendar::EFFECTIVE_FROM
+      beginning = CR::Calendar::EFFECTIVE_FROM
       if range.first < beginning
         raise InputError.new("implemented calendar system in use only since #{beginning}")
       end

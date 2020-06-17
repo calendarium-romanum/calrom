@@ -122,20 +122,20 @@ describe Calrom::OptionParser do
   describe 'sanctorale' do
     it 'default' do
       sanctorale = described_class.([]).build_sanctorale
-      expect(sanctorale).to eq CalendariumRomanum::Data::GENERAL_ROMAN_ENGLISH.load
+      expect(sanctorale).to eq CR::Data::GENERAL_ROMAN_ENGLISH.load
     end
 
     it 'single calendar' do
       sanctorale = described_class.(%w(--calendar=universal-la)).build_sanctorale
-      expect(sanctorale).to eq CalendariumRomanum::Data::GENERAL_ROMAN_LATIN.load
+      expect(sanctorale).to eq CR::Data::GENERAL_ROMAN_LATIN.load
     end
 
     it 'layer multiple calendars' do
       sanctorale = described_class.(%w(--calendar=czech-cs --calendar=czech-cechy-cs)).build_sanctorale
       expect(sanctorale)
-        .to eq CalendariumRomanum::SanctoraleFactory.create_layered(
-                 CalendariumRomanum::Data['czech-cs'].load,
-                 CalendariumRomanum::Data['czech-cechy-cs'].load
+        .to eq CR::SanctoraleFactory.create_layered(
+                 CR::Data['czech-cs'].load,
+                 CR::Data['czech-cechy-cs'].load
                )
     end
   end

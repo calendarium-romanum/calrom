@@ -7,7 +7,7 @@ module Calrom
           raise 'unexpected date range, expected a year'
         end
 
-        puts CalendariumRomanum::Temporale::Dates
+        puts CR::Temporale::Dates
                .easter_sunday(date_range.first.year - 1)
                .strftime('%D')
       end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Calrom::Formatter::Overview do
   describe 'formatting a single whole month' do
-    let(:calendar) { CalendariumRomanum::PerpetualCalendar.new }
+    let(:calendar) { CR::PerpetualCalendar.new }
     let(:highlighter) { Calrom::Highlighter::No.new }
     let(:range) { Calrom::Month.new 2020, 6 }
 

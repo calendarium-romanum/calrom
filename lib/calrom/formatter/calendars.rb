@@ -6,7 +6,7 @@ module Calrom
     class Calendars < Formatter
       def call(calendar, date_range)
         last_locale = nil
-        CalendariumRomanum::Data.each do |d|
+        CR::Data.each do |d|
           meta = load_front_matter d
           puts if last_locale && last_locale != meta['locale']
           puts "%-20s:  %s  [%s]" % [d.siglum, meta['title'], meta['locale']]
