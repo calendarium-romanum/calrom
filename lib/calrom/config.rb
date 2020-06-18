@@ -1,6 +1,7 @@
 module Calrom
   class Config
     DEFAULT_DATA = CR::Data::GENERAL_ROMAN_ENGLISH
+    DEFAULT_LOCALE = :en
 
     def initialize
       self.today = Date.today
@@ -25,8 +26,7 @@ module Calrom
     end
 
     def locale
-      @locale ||
-        (sanctorale.last || DEFAULT_DATA.siglum).split('-').last.to_sym
+      @locale || locale_in_file_name || DEFAULT_LOCALE
     end
 
     def formatter
@@ -47,6 +47,14 @@ module Calrom
       end
 
       colourful.new
+    end
+
+    private
+
+    def locale_in_file_name
+      locale = (sanctorale.last || DEFAULT_DATA.siglum).split('-').last.to_sym
+
+      I18n.available_locales.include?(locale) ? locale : nil
     end
   end
 end
