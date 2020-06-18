@@ -80,6 +80,7 @@ and disabling colours:
 --calendar=czech-cs       # celebrations common for the whole Czech Republic
 --calendar=czech-cechy-cs # Bohemia
 --calendar=czech-praha-cs # archdiocese of Prague
+--calendar=/home/igneus/calendar_data/local_church.txt # path to a custom calendar file with proper celebrations of the parish where I live (titular feast of the church, dedication)
 
 --no-color # disable colours
 ```
