@@ -67,13 +67,17 @@ It usually makes sense to use configuration files only for the most fundamental 
 you will never change, like selecting calendar (if you know you will always check this single one)
 or disabling colours (if you hate colourful output).
 
-Example configuration loading the proper calendar of the archdiocese of Prague
+If a custom configuration file location is specified on the command line,
+`$ calrom --config=path/to/my/custom/config`, the standard system-wide and user-specific configuration
+files are *not* loaded.
+
+Example configuration file, loading the proper calendar of the archdiocese of Prague
 and disabling colours:
 
 ```bash
 # shell-like comments can be used in configuration files
 
---calendar=czech-cs       # celebration common for the whole Czech Republic
+--calendar=czech-cs       # celebrations common for the whole Czech Republic
 --calendar=czech-cechy-cs # Bohemia
 --calendar=czech-praha-cs # archdiocese of Prague
 
