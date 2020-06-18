@@ -7,9 +7,10 @@ module Calrom
       self.today = Date.today
       self.date_range = Month.new(today.year, today.month)
       self.sanctorale = []
+      self.configs = []
     end
 
-    attr_accessor :today, :date_range, :formatter, :colours, :sanctorale, :locale
+    attr_accessor :today, :date_range, :formatter, :colours, :sanctorale, :locale, :configs
 
     def calendar
       CR::PerpetualCalendar.new(sanctorale: build_sanctorale)

@@ -84,6 +84,10 @@ module Calrom
           config.locale = value.to_sym
         end
 
+        opts.on('--config=CONFIG', 'load configuration from file (may be used multiple times, all specified files will be loaded)') do |value|
+          config.configs << value
+        end
+
         opts.on('--[no-]color', 'enable/disable colours (enabled by default)') do |value|
           config.colours = value
         end
