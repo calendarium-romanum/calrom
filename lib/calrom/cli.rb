@@ -1,5 +1,3 @@
-require 'shellwords'
-
 module Calrom
   class CLI
     def self.call(argv)
@@ -39,7 +37,7 @@ module Calrom
         rescue Errno::ENOENT
           raise InputError.new("Configuration file \"#{f}\" not found")
         end
-        Shellwords.split(content)
+        RcParser.call content
       end.flatten
     end
   end

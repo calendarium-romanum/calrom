@@ -13,6 +13,17 @@ Feature: Configuration file
     Then the exit status should be 0
     And the output should contain "Basilii et Gregorii Nazianzeni"
 
+  Scenario: config supports shell-like comments
+    Given a file named "~/.calromrc" with:
+    """
+    --calendar=universal-la # --color
+    # --calendar=universal-fr
+    """
+    When I run `calrom 2001-01-02`
+    #Then the exit status should be 0
+    And the output should contain "Basilii et Gregorii Nazianzeni"
+    And the output should contain no colour codes
+
   Scenario: config specified by an option
     Given a file named "~/.calromrc" with:
     """

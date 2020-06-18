@@ -70,11 +70,14 @@ or disabling colours (if you hate colourful output).
 Example configuration loading the proper calendar of the archdiocese of Prague
 and disabling colours:
 
-```
---calendar=czech-cs
---calendar=czech-cechy-cs
---calendar=czech-praha-cs
---no-color
+```bash
+# shell-like comments can be used in configuration files
+
+--calendar=czech-cs       # celebration common for the whole Czech Republic
+--calendar=czech-cechy-cs # Bohemia
+--calendar=czech-praha-cs # archdiocese of Prague
+
+--no-color # disable colours
 ```
 
 (Configuration file format is inspired by [.rspec][dotrspec].)
