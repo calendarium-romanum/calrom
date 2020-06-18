@@ -20,7 +20,17 @@ module Calrom
         return DEFAULT_DATA.load
       end
 
-      data = @sanctorale.collect {|siglum| CR::Data[siglum].load }
+      data = @sanctorale.collect do |s|
+        if File.file? s
+          CR::SanctoraleLoader.new.load_from_file s
+        elsif CR::Data[s]
+          CR::Data[s].load
+        else
+          raise InputError.new "\"#{s}\" is neither a file, nor a valid identifier of a bundled calendar. " +
+                               "Valid identifiers are: " +
+                               CR::Data.each.collect(&:siglum).inspect
+        end
+      end
 
       CR::SanctoraleFactory.create_layered(*data)
     end

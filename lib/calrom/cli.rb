@@ -3,12 +3,11 @@ module Calrom
     def self.call(argv)
       begin
         config = OptionParser.call argv
+        calendar = config.calendar
       rescue ::OptionParser::InvalidOption, InputError => e
         STDERR.puts e.message
         exit 1
       end
-
-      calendar = config.calendar
 
       I18n.locale = config.locale
 

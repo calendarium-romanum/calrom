@@ -13,3 +13,28 @@ Feature: Calendars
     When I run `calrom --calendar=universal-la 2001-01-02`
     Then the exit status should be 0
     And the output should contain "Basilii et Gregorii Nazianzeni"
+
+  Scenario: specify calendar by file path
+    Given a file named "my_calendar" with:
+    """
+    1/11 : St. None, abbot
+    """
+    When I run `calrom --calendar=my_calendar 2000-01-11`
+    Then the exit status should be 0
+    And the output should contain "St. None, abbot,  optional memorial"
+
+  Scenario: calendar file name the same as siglum of a bundled calendar
+    Given a file named "universal-en" with:
+    """
+    1/11 : St. None, abbot
+    """
+    When I run `calrom --calendar=universal-en 2000-01-11`
+    Then the exit status should be 0
+    # in case of name conflict, local file wins over a bundled calendar
+    And the output should contain "St. None, abbot,  optional memorial"
+
+  Scenario: specify unknown calendar
+    When I run `calrom --calendar=unknown 2000-01-11`
+    Then the exit status should be 1
+    And the stderr should contain "neither a file, nor a valid identifier of a bundled calendar."
+    And the stderr should not contain traceback

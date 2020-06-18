@@ -58,7 +58,7 @@ module Calrom
         end
 
         opts.on('-c CAL', '--calendar=CAL', 'specify (sanctorale) calendar to use. If repeated, layers all specified calendars one over another') do |value|
-          config.sanctorale << validate_sanctorale(value)
+          config.sanctorale << value
         end
 
         opts.on('--yesterday', 'display previous day') do |value|
@@ -191,17 +191,6 @@ module Calrom
       end
 
       range
-    end
-
-    def validate_sanctorale(siglum)
-      bundled = CR::Data[siglum]
-      if bundled.nil?
-        raise InputError.new "\"#{siglum}\" is not a valid identifier of a bundled data file. " +
-                             "Valid identifiers are: " +
-                             CR::Data.each.collect(&:siglum).inspect
-      end
-
-      siglum
     end
   end
 end
