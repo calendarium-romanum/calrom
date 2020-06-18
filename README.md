@@ -56,6 +56,29 @@ Disable colours:
 
 `$ calrom --no-color`
 
+### Configuration files
+
+`calrom` looks for configuration files `/etc/calromrc` and `~/.calromrc`.
+They are processed in this order and both are used if available.
+Their syntax is that of shell options and arguments (with the sole exception that newline
+is not considered end of shell input, but generic whitespace), supported are all options and arguments
+accepted by the command.
+It usually makes sense to use configuration files only for the most fundamental settings
+you will never change, like selecting calendar (if you know you will always check this single one)
+or disabling colours (if you hate colourful output).
+
+Example configuration loading the proper calendar of the archdiocese of Prague
+and disabling colours:
+
+```
+--calendar=czech-cs
+--calendar=czech-cechy-cs
+--calendar=czech-praha-cs
+--no-color
+```
+
+(Configuration file format is inspired by [.rspec][dotrspec].)
+
 ## Running tests
 
 Clone the repository, `$ bundle install` to install dependencies, then:
@@ -75,7 +98,7 @@ Clone the repository, `$ bundle install` to install dependencies, then:
 * [ ] condensed format (but with detailed information) suitable for awesome/i3 toolbars etc.
 * [ ] machine-readable detailed listing
 * [ ] year summary: lectionary cycles, movable feasts
-* [ ] configuration file to set default options
+* [x] configuration file to set default options
 * [ ] specify calendar data path (with support for layering several calendars)
 * [ ] option to auto-select one of optional celebrations - with multiple supported strategies (prefer ferial, take first non-ferial, configured whitelist, blacklist)
 * [ ] integrate online data sources
@@ -117,3 +140,4 @@ GNU/GPL 3.0 or later
 [semver]: https://semver.org/
 [cal]: https://www.freebsd.org/cgi/man.cgi?query=cal
 [taoup]: http://www.catb.org/esr/writings/taoup/html/ch10s05.html
+[dotrspec]: https://relishapp.com/rspec/rspec-core/v/2-0/docs/configuration/read-command-line-configuration-options-from-files
