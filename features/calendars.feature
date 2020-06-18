@@ -23,6 +23,18 @@ Feature: Calendars
     Then the exit status should be 0
     And the output should contain "St. None, abbot,  optional memorial"
 
+  Scenario: read calendar from the standard input
+    Given a file named "my_calendar" with:
+    """
+    1/11 : St. None, abbot
+    """
+    When I run the following commands:
+    """
+    cat my_calendar | calrom --calendar=- 2000-01-11
+    """
+    Then the exit status should be 0
+    And the output should contain "St. None, abbot,  optional memorial"
+
   Scenario: calendar file name the same as siglum of a bundled calendar
     Given a file named "universal-en" with:
     """

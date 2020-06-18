@@ -21,7 +21,9 @@ module Calrom
       end
 
       data = @sanctorale.collect do |s|
-        if File.file? s
+        if s == '-'
+          CR::SanctoraleLoader.new.load_from_string STDIN.read
+        elsif File.file? s
           CR::SanctoraleLoader.new.load_from_file s
         elsif CR::Data[s]
           CR::Data[s].load
@@ -62,7 +64,7 @@ module Calrom
     private
 
     def locale_in_file_name
-      locale = (sanctorale.last || DEFAULT_DATA.siglum).split('-').last.to_sym
+      locale = (sanctorale.last || DEFAULT_DATA.siglum).split('-').last&.to_sym
 
       I18n.available_locales.include?(locale) ? locale : nil
     end
