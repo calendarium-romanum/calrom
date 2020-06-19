@@ -55,3 +55,13 @@ Feature: Configuration file
     Then the exit status should be 1
     And the stderr should contain "not found"
     And the stderr should not contain traceback
+
+  Scenario: --config option in a configuration file has no effect
+    And a file named "~/.calromrc" with:
+    """
+    --calendar=universal-la
+    --config=unknown_file # the file does not exist, but the command doesn't fail, because it doesn't even attempt to load configuration files specified in configuration files
+    """
+    When I run `calrom 2001-01-02`
+    Then the exit status should be 0
+    And the output should contain "Basilii et Gregorii Nazianzeni"
