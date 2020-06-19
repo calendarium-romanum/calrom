@@ -104,7 +104,7 @@ Clone the repository, `$ bundle install` to install dependencies, then:
   the BSD Unix [`cal`][cal] utility,
   but with liturgical colours and celebration ranks
 * [ ] condensed format (but with detailed information) suitable for awesome/i3 toolbars etc.
-* [ ] machine-readable detailed listing
+* [x] machine-readable detailed listing
 * [ ] year summary: lectionary cycles, movable feasts
 * [x] configuration file to set default options
 * [ ] specify calendar data path (with support for layering several calendars)
