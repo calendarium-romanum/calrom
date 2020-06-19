@@ -84,6 +84,10 @@ module Calrom
           config.locale = value.to_sym
         end
 
+        opts.on('--format=FORMAT', %i(overview list csv), 'specify output format') do |value|
+          config.formatter = value
+        end
+
         opts.on('--config=CONFIG', 'load configuration from file (may be used multiple times, all specified files will be loaded)') do |value|
           config.configs << value
         end

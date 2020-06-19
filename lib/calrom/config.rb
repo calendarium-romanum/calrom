@@ -49,6 +49,8 @@ module Calrom
         Formatter::Easter.new
       elsif @formatter == :calendars
         Formatter::Calendars.new highlighter(Highlighter::Overview), today
+      elsif @formatter == :csv
+        Formatter::Csv.new
       else
         Formatter::Overview.new highlighter(Highlighter::Overview), today
       end
