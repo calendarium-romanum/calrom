@@ -51,6 +51,8 @@ module Calrom
         Formatter::Calendars.new highlighter(Highlighter::Overview), today
       elsif @formatter == :csv
         Formatter::Csv.new
+      elsif @formatter == :json
+        Formatter::Json.new
       else
         Formatter::Overview.new highlighter(Highlighter::Overview), today
       end

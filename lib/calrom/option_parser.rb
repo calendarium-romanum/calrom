@@ -84,7 +84,7 @@ module Calrom
           config.locale = value.to_sym
         end
 
-        opts.on('--format=FORMAT', %i(overview list csv), 'specify output format') do |value|
+        opts.on('--format=FORMAT', %i(overview list csv json), 'specify output format') do |value|
           config.formatter = value
         end
 
