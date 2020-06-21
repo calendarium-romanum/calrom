@@ -6,6 +6,12 @@ module Calrom
   class OptionParser
     using PatternMatch
 
+    class CustomizedOptionParser < ::OptionParser
+      def separator(string)
+        super "\n" + string
+      end
+    end
+
     def self.call(argv)
       self.new.call(argv)
     end
@@ -21,15 +27,37 @@ module Calrom
 
       range_type = nil
 
-      opt_parser = ::OptionParser.new do |opts|
-        opts.on('-l', '--list', 'list mode') do
-          config.formatter = :list
+      opt_parser = CustomizedOptionParser.new do |opts|
+        opts.banner = <<~EOS
+        Usage: calrom [options] [arg1 [arg2]]
+
+        Specifying date range (cal/ncal-compatible):
+
+          calrom             - current month
+          calrom -m 5        - May of the current year
+          calrom -m 5p       - May of the previous year
+          calrom -m 5f       - May of the following year
+          calrom -m 5 2000   - May 2000
+          calrom 5 2000      - also May 2000
+          calrom 2000        - whole year 2000
+          calrom -y 2000     - also whole year 2000
+          calrom -y          - whole current year
+
+        Specifying date range (not cal-compatible):
+
+          calrom 2000-05-31              - specified day (only)
+          calrom 2000-05-31 2000-07-01   - arbitrary date range
+          calrom (--yesterday|--today|--tomorrow)
+
+        EOS
+
+        opts.separator 'Configuration files'
+
+        opts.on('--config=CONFIG', 'load configuration from file (may be used multiple times, all specified files will be loaded)') do |value|
+          config.configs << value
         end
 
-        # cal
-        opts.on('-e', '--easter', 'display date of Easter') do
-          config.formatter = :easter
-        end
+        opts.separator 'Options selecting date range'
 
         # cal
         opts.on('-m MONTH', '--month=MONTH', 'display the specified month. \'f\' or \'p\' can be appended to display the same month of the following or previous year respectively') do |value|
@@ -47,20 +75,6 @@ module Calrom
           range_type = :year
         end
 
-        # cal
-        opts.on('-d YM', '--current-month=YM', 'use given month (YYYY-MM) as the current month (for debugging of date range selection)') do |value|
-          year, month = value.split '-'
-        end
-
-        # cal
-        opts.on('-H DATE', '--highlight-date=DATE', 'use given date as the current date (for debugging of highlighting)') do |value|
-          config.today = validate_day value
-        end
-
-        opts.on('-c CAL', '--calendar=CAL', 'specify (sanctorale) calendar to use. If repeated, layers all specified calendars one over another') do |value|
-          config.sanctorale << value
-        end
-
         opts.on('--yesterday', 'display previous day') do |value|
           day = Date.today - 1
           range_type = :day
@@ -76,34 +90,64 @@ module Calrom
           range_type = :day
         end
 
-        opts.on('--calendars', 'list bundled calendars') do |value|
-          config.formatter = :calendars
+        opts.separator "Options configuring liturgical calendar"
+
+        opts.on('-c CAL', '--calendar=CAL', 'specify (sanctorale) calendar to use. If repeated, layers all specified calendars one over another') do |value|
+          config.sanctorale << value
         end
 
-        opts.on('--locale=LOCALE', 'override language in which temporale celebration titles are rendered') do |value|
+        locales_help = I18n.available_locales.join(', ')
+        opts.on('--locale=LOCALE', "override language in which temporale celebration titles are rendered (supported: #{locales_help})") do |value|
           config.locale = value.to_sym
         end
 
-        opts.on('--format=FORMAT', %i(overview list csv json), 'specify output format') do |value|
+        opts.separator 'Options affecting presentation'
+
+        opts.on('-l', '--list', 'display detailed listing of days and celebrations (synonym to --format=list)') do
+          config.formatter = :list
+        end
+
+        supported_formats = %i(overview list csv json)
+        formats_help = supported_formats.join(', ')
+        opts.on('--format=FORMAT', supported_formats, "specify output format (supported: #{formats_help})") do |value|
           config.formatter = value
         end
 
-        opts.on('--config=CONFIG', 'load configuration from file (may be used multiple times, all specified files will be loaded)') do |value|
-          config.configs << value
+        # cal
+        opts.on('-e', '--easter', 'display date of Easter (only)') do
+          config.formatter = :easter
+        end
+
+        opts.on('--calendars', 'list bundled calendars') do |value|
+          config.formatter = :calendars
         end
 
         opts.on('--[no-]color', 'enable/disable colours (enabled by default)') do |value|
           config.colours = value
         end
 
-        opts.on_tail('-V', '--version', 'display calrom version') do
+        opts.separator 'Debugging options'
+
+        # cal
+        opts.on('-d YM', '--current-month=YM', 'use given month (YYYY-MM) as the current month (for debugging of date range selection)') do |value|
+          year, month = value.split '-'
+        end
+
+        # cal
+        opts.on('-H DATE', '--highlight-date=DATE', 'use given date as the current date (for debugging of highlighting)') do |value|
+          config.today = validate_day value
+        end
+
+        opts.separator 'Information regarding calrom'
+
+        opts.on('-V', '--version', 'display calrom version') do
           puts 'calrom v' + Calrom::VERSION
           exit
         end
 
         # Normally optparse defines this option by default, but once -H option is added,
         # for some reason -h (if not defined explicitly) is treated as -H.
-        opts.on_tail('-h', '--help', 'display this help') do
+        opts.on('-h', '--help', 'display this help') do
           puts opts
           exit
         end
