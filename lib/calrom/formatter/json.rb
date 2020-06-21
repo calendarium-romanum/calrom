@@ -18,6 +18,7 @@ module Calrom
             celebrations: day.celebrations.collect do |c|
               {
                 title: c.title,
+                symbol: c.symbol,
                 colour: c.colour.symbol,
                 rank: c.rank.short_desc,
                 rank_num: c.rank.priority

@@ -5,7 +5,7 @@ module Calrom
     class Csv
       def call(calendar, date_range)
         CSV do |out|
-          out << %w(date title rank rank_num colour season)
+          out << %w(date title symbol rank rank_num colour season)
 
           date_range.each do |date|
             day = calendar[date]
@@ -13,6 +13,7 @@ module Calrom
               out << [
                 day.date,
                 c.title,
+                c.symbol,
                 c.rank.short_desc,
                 c.rank.priority,
                 c.colour.symbol,

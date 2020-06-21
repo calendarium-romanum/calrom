@@ -7,9 +7,9 @@ Feature: Machine-readable output formats
     Then the exit status should be 0
     And the output should contain:
     """
-    date,title,rank,rank_num,colour,season
-    2001-02-24,"Saturday, 7th week in Ordinary Time",ferial,3.13,green,ordinary
-    2001-02-24,The Memorial of the Blessed Virgin Mary on Saturday,optional memorial,3.12,white,ordinary
+    date,title,symbol,rank,rank_num,colour,season
+    2001-02-24,"Saturday, 7th week in Ordinary Time",,ferial,3.13,green,ordinary
+    2001-02-24,The Memorial of the Blessed Virgin Mary on Saturday,saturday_memorial_bvm,optional memorial,3.12,white,ordinary
     """
 
   Scenario: JSON single day
@@ -17,7 +17,7 @@ Feature: Machine-readable output formats
     Then the exit status should be 0
     And the output should contain:
     """
-    [{"date":"2001-02-24","season":"ordinary","season_week":7,"celebrations":[{"title":"Saturday, 7th week in Ordinary Time","colour":"green","rank":"ferial","rank_num":3.13},{"title":"The Memorial of the Blessed Virgin Mary on Saturday","colour":"white","rank":"optional memorial","rank_num":3.12}],"weekday":"Saturday"}]
+    [{"date":"2001-02-24","season":"ordinary","season_week":7,"celebrations":[{"title":"Saturday, 7th week in Ordinary Time","symbol":null,"colour":"green","rank":"ferial","rank_num":3.13},{"title":"The Memorial of the Blessed Virgin Mary on Saturday","symbol":"saturday_memorial_bvm","colour":"white","rank":"optional memorial","rank_num":3.12}],"weekday":"Saturday"}]
     """
 
   Scenario: JSON multiple days
@@ -25,6 +25,6 @@ Feature: Machine-readable output formats
     Then the exit status should be 0
     And the output should contain:
     """
-    [{"date":"2001-02-12","season":"ordinary","season_week":6,"celebrations":[{"title":"Monday, 6th week in Ordinary Time","colour":"green","rank":"ferial","rank_num":3.13}],"weekday":"Monday"},
-    {"date":"2001-02-13","season":"ordinary","season_week":6,"celebrations":[{"title":"Tuesday, 6th week in Ordinary Time","colour":"green","rank":"ferial","rank_num":3.13}],"weekday":"Tuesday"}]
+    [{"date":"2001-02-12","season":"ordinary","season_week":6,"celebrations":[{"title":"Monday, 6th week in Ordinary Time","symbol":null,"colour":"green","rank":"ferial","rank_num":3.13}],"weekday":"Monday"},
+    {"date":"2001-02-13","season":"ordinary","season_week":6,"celebrations":[{"title":"Tuesday, 6th week in Ordinary Time","symbol":null,"colour":"green","rank":"ferial","rank_num":3.13}],"weekday":"Tuesday"}]
     """
