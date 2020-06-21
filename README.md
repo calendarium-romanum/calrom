@@ -46,6 +46,29 @@ Print liturgical calendar for the current month (default):
 
 `$ calrom 2028-01-15 2028-03-07`
 
+### Selecting calendar
+
+There are a few calendars bundled in calrom (actually in the calendarium-romanum gem)
+and ready to use. List them:
+
+`$ calrom --calendars`
+
+Each entry of the listing contains an ID of the calendar, it's name and language code.
+Use calendar ID to request General Roman Calendar in Latin:
+
+`$ calrom --calendar=universal-la`
+
+You can prepare [your own calendar data][carodata] and load them:
+
+`$ calrom --calendar=path/to/my_calendar.txt`
+
+If you specify more than one calendar, they are loaded "layered" one over another
+(from left to right), which comes in handy when extending a general calendar
+with just a few additional and/or differing celebrations, e.g. solemnities (titular, dedication)
+of the local church:
+
+`$ calrom --calendar=universal-la --calendar=path/to/our_local_celebrations.txt`
+
 ### Data presentation settings
 
 Print detailed listing:
@@ -55,6 +78,14 @@ Print detailed listing:
 Disable colours:
 
 `$ calrom --no-color`
+
+Machine-readable output formats:
+
+`$ calrom --format=json` - prints JSON array containing one object per day.
+The object contents mimick output of the [Church Calendar API v0][calapidoc].
+
+`$ calrom --format=csv` - prints a CSV, one celebration per line
+(i.e. there is one or more lines for each liturgical day).
 
 ### Configuration files
 
@@ -107,7 +138,7 @@ Clone the repository, `$ bundle install` to install dependencies, then:
 * [x] machine-readable detailed listing
 * [ ] year summary: lectionary cycles, movable feasts
 * [x] configuration file to set default options
-* [ ] specify calendar data path (with support for layering several calendars)
+* [x] specify calendar data path (with support for layering several calendars)
 * [ ] option to auto-select one of optional celebrations - with multiple supported strategies (prefer ferial, take first non-ferial, configured whitelist, blacklist)
 * [ ] integrate online data sources
 * [ ] interactive browsing
@@ -145,6 +176,8 @@ command line interface
 GNU/GPL 3.0 or later
 
 [caro]: https://github.com/igneus/calendarium-romanum
+[carodata]: https://github.com/igneus/calendarium-romanum/tree/master/data
+[calapidoc]: http://calapi.inadiutorium.cz/api-doc
 [semver]: https://semver.org/
 [cal]: https://www.freebsd.org/cgi/man.cgi?query=cal
 [taoup]: http://www.catb.org/esr/writings/taoup/html/ch10s05.html
