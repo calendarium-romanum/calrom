@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.3.0] 2020-06-21
+
+### Added
+
+- date range selection: options `--today`, `--tomorrow`, `--yesterday`
+- specifying the `--calendar=` option multiple times layers the calendars
+- file path can be provided as argument to the `--calendar=` option
+- option `--locale=` to specify language of localized calendar strings
+- language of the (last loaded) sanctorale data is by default used for localized strings
+- output is by default not colorized when not printing to a terminal
+- configuration files
+  - `/etc/calromrc`
+  - `$HOME/.calromrc`
+  - specified by the `--config=` option
+- machine-readable output formats `--format=csv`, `--format=json`
+- option `--calendars` to list bundled calendars
+
+### Fixed
+
+- crash on option parsing errors other than invalid option
+
 ## [0.2.0] 2020-06-16
 
 ### Added
