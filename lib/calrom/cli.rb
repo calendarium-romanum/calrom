@@ -37,7 +37,16 @@ module Calrom
         rescue Errno::ENOENT
           raise InputError.new("Configuration file \"#{f}\" not found")
         end
-        RcParser.call content
+
+        options = RcParser.call content
+
+        begin
+          OptionParser.call(options)
+        rescue ::OptionParser::ParseError => e
+          raise InputError.new("Error loading '#{f}': #{e.message}")
+        end
+
+        options
       end.flatten
     end
   end

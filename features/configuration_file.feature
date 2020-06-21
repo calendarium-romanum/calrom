@@ -57,7 +57,7 @@ Feature: Configuration file
     And the stderr should not contain traceback
 
   Scenario: --config option in a configuration file has no effect
-    And a file named "~/.calromrc" with:
+    Given a file named "~/.calromrc" with:
     """
     --calendar=universal-la
     --config=unknown_file # the file does not exist, but the command doesn't fail, because it doesn't even attempt to load configuration files specified in configuration files
@@ -65,3 +65,14 @@ Feature: Configuration file
     When I run `calrom 2001-01-02`
     Then the exit status should be 0
     And the output should contain "Basilii et Gregorii Nazianzeni"
+
+  Scenario: configuration file invalid
+    Given a file named "~/.calromrc" with:
+    """
+    --unknown-option
+    """
+    When I run `calrom`
+    Then the exit status should be 1
+    And the stderr should contain "Error loading '"
+    And the stderr should contain ".calromrc': invalid option: --unknown-option"
+    And the stderr should not contain traceback
