@@ -75,3 +75,22 @@ Feature: Calendars
     When I run `calrom --calendar=child_calendar 2000-01-11`
     Then the exit status should be 0
     And the output should contain "St. None, abbot,  optional memorial"
+
+  Scenario: parent calendars are not loaded if multiple calendars are specified
+    When I run `calrom --calendar=czech-cechy-cs --calendar=czech-budejovice-cs 2000-09-28`
+    Then the exit status should be 0
+    # in the parent of both calendars there is a solemnity on the given date,
+    # but the parent calendar is not loaded
+    And the output should contain "Čtvrtek 25. týdne v mezidobí"
+
+  Scenario: single calendar, but parent loading explicitly disabled
+    When I run `calrom --no-load-parents --calendar=czech-budejovice-cs 2000-09-28`
+    Then the exit status should be 0
+    # in a parent calendar there is a solemnity on the given date,
+    # but the parent calendar is not loaded
+    And the output should contain "Čtvrtek 25. týdne v mezidobí"
+
+  Scenario: multiple calendars, but parent loading explicitly enabled
+    When I run `calrom --load-parents --calendar=czech-cechy-cs --calendar=czech-budejovice-cs 2000-09-28`
+    Then the exit status should be 0
+    And the output should contain "Sv. Václava, mučedníka, hlavního patrona českého národa"

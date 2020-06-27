@@ -10,7 +10,14 @@ module Calrom
       self.configs = []
     end
 
-    attr_accessor :today, :date_range, :formatter, :colours, :sanctorale, :locale, :configs
+    attr_accessor :today,
+                  :date_range,
+                  :formatter,
+                  :colours,
+                  :sanctorale,
+                  :locale,
+                  :configs,
+                  :load_parents
 
     def calendar
       CR::PerpetualCalendar.new(sanctorale: build_sanctorale)
@@ -38,7 +45,7 @@ module Calrom
                                    CR::Data.each.collect(&:siglum).inspect
             end
 
-          if @sanctorale.size == 1
+          if load_parents?
             begin
               data_file.load_with_parents
             rescue NoMethodError
@@ -82,6 +89,12 @@ module Calrom
       end
 
       colourful.new
+    end
+
+    # Should calendars be loaded including parent files they reference?
+    def load_parents?
+      load_parents == true ||
+        (load_parents.nil? && @sanctorale.size == 1)
     end
 
     private

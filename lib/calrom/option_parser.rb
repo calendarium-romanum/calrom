@@ -96,6 +96,10 @@ module Calrom
           config.sanctorale << value
         end
 
+        opts.on('--[no-]load-parents', 'explicitly enable/disable parent calendar loading') do |value|
+          config.load_parents = value
+        end
+
         locales_help = I18n.available_locales.join(', ')
         opts.on('--locale=LOCALE', "override language in which temporale celebration titles are rendered (supported: #{locales_help})") do |value|
           config.locale = value.to_sym
