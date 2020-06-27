@@ -141,7 +141,6 @@ Clone the repository, `$ bundle install` to install dependencies, then:
 * [x] specify calendar data path (with support for layering several calendars)
 * [ ] option to auto-select one of optional celebrations - with multiple supported strategies (prefer ferial, take first non-ferial, configured whitelist, blacklist)
 * [ ] integrate online data sources
-* [ ] interactive browsing
 
 ## Backward compatibility
 
