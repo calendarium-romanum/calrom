@@ -41,7 +41,7 @@ module Calrom
     end
 
     def locale
-      @locale || locale_in_file_name || DEFAULT_LOCALE
+      @locale || locale_in_file_metadata || DEFAULT_LOCALE
     end
 
     def formatter
@@ -70,10 +70,8 @@ module Calrom
 
     private
 
-    def locale_in_file_name
-      locale = (sanctorale.last || DEFAULT_DATA.siglum).split('-').last&.to_sym
-
-      I18n.available_locales.include?(locale) ? locale : nil
+    def locale_in_file_metadata
+      build_sanctorale.metadata['locale']&.to_sym
     end
   end
 end
