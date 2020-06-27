@@ -22,10 +22,12 @@ module Calrom
       end
 
       data = @sanctorale.collect do |s|
+        expanded = File.expand_path s
+
         if s == '-'
           CR::SanctoraleLoader.new.load_from_string STDIN.read
-        elsif File.file? s
-          CR::SanctoraleLoader.new.load_from_file s
+        elsif File.file? expanded
+          CR::SanctoraleLoader.new.load_from_file expanded
         elsif CR::Data[s]
           CR::Data[s].load
         else

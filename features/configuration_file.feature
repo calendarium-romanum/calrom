@@ -76,3 +76,16 @@ Feature: Configuration file
     And the stderr should contain "Error loading '"
     And the stderr should contain ".calromrc': invalid option: --unknown-option"
     And the stderr should not contain traceback
+
+  Scenario: tilde expansion in configuration file
+    Given a file named "~/calendar.txt" with:
+    """
+    1/11 : St. None, abbot
+    """
+    And a file named "~/.calromrc" with:
+    """
+    --calendar=~/calendar.txt # path with tilde
+    """
+    When I run `calrom 2000-01-11`
+    Then the exit status should be 0
+    And the output should contain "St. None, abbot,  optional memorial"
