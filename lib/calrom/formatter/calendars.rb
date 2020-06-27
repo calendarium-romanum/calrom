@@ -7,7 +7,8 @@ module Calrom
         CR::Data.each do |d|
           meta = d.load.metadata
           puts if last_locale && last_locale != meta['locale']
-          puts "%-20s:  %s  [%s]" % [d.siglum, meta['title'], meta['locale']]
+          default = d == Config::DEFAULT_DATA ? ' [default]' : ''
+          puts "%-20s:  %s  [%s]%s" % [d.siglum, meta['title'], meta['locale'], default]
           last_locale = meta['locale']
         end
       end
