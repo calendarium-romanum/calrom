@@ -21,15 +21,31 @@ module Calrom
         return DEFAULT_DATA.load
       end
 
+      loader = CR::SanctoraleLoader.new
       data = @sanctorale.collect do |s|
         expanded = File.expand_path s
 
         if s == '-'
-          CR::SanctoraleLoader.new.load_from_string STDIN.read
+          loader.load_from_string STDIN.read
         elsif File.file? expanded
-          CR::SanctoraleLoader.new.load_from_file expanded
+          if @sanctorale.size == 1
+            begin
+              CR::SanctoraleFactory.load_with_parents expanded
+            rescue NoMethodError
+              # As of calendarium-romanum 0.7.0 `SanctoraleFactory.load_with_parents` crashes
+              # when any of the calendars lacks the YAML front matter.
+              # Until that is fixed, let's fallback to the simple load.
+              loader.load_from_file expanded
+            end
+          else
+            loader.load_from_file expanded
+          end
         elsif CR::Data[s]
-          CR::Data[s].load
+          if @sanctorale.size == 1
+            CR::Data[s].load_with_parents
+          else
+            CR::Data[s].load
+          end
         else
           raise InputError.new "\"#{s}\" is neither a file, nor a valid identifier of a bundled calendar. " +
                                "Valid identifiers are: " +
