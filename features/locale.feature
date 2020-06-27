@@ -27,3 +27,9 @@ Scenario: French calendar, English locale, temporale celebration
   When I run `calrom --calendar=universal-fr --locale=en 2000-01-12`
   Then the exit status should be 0
   And the output should contain "Wednesday, 1st week in Ordinary Time,  ferial"
+
+Scenario: specify unsupported locale
+  When I run `calrom --locale=xx`
+  Then the exit status should be 1
+  And the output should contain "Locale 'xx' unsupported"
+  And the stderr should not contain traceback

@@ -15,7 +15,13 @@ module Calrom
         exit 1
       end
 
-      I18n.locale = config.locale
+      begin
+        I18n.locale = config.locale
+      rescue I18n::InvalidLocale
+        locales_help = I18n.available_locales.join(', ')
+        STDERR.puts "Locale '#{config.locale}' unsupported (available locales: #{locales_help})"
+        exit 1
+      end
 
       config.formatter.call calendar, config.date_range
     end
