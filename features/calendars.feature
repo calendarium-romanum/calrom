@@ -35,6 +35,11 @@ Feature: Calendars
     Then the exit status should be 0
     And the output should contain "St. None, abbot,  optional memorial"
 
+  Scenario: remote calendar (API)
+    When I run `calrom --calendar=http://calapi.inadiutorium.cz/api/v0/en/calendars/general-la 2001-01-02`
+    #Then the exit status should be 0
+    And the output should contain "Basilii et Gregorii Nazianzeni"
+
   Scenario: calendar file name the same as siglum of a bundled calendar
     Given a file named "universal-en" with:
     """

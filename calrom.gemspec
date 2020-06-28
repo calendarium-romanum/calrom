@@ -21,6 +21,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'calendarium-romanum', '~> 0.7.1'
+  spec.add_dependency 'calendarium-romanum-remote', '~> 0.3.0'
   spec.add_dependency 'colorize', '~> 0.8'
   spec.add_dependency 'pattern-match', '~> 1.0'
 

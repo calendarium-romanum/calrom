@@ -20,6 +20,10 @@ module Calrom
                   :load_parents
 
     def calendar
+      if is_remote_calendar?
+        return CR::Remote::Calendar.new date_range.first.year, @sanctorale.last
+      end
+
       CR::PerpetualCalendar.new(sanctorale: build_sanctorale)
     end
 
@@ -100,7 +104,11 @@ module Calrom
     private
 
     def locale_in_file_metadata
-      build_sanctorale.metadata['locale']&.to_sym
+      is_remote_calendar? ? nil : build_sanctorale.metadata['locale']&.to_sym
+    end
+
+    def is_remote_calendar?
+      @sanctorale.last =~ /^https?:\/\//
     end
   end
 end

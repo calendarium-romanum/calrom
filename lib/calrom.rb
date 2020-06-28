@@ -1,4 +1,5 @@
 require 'calendarium-romanum'
+require 'calendarium-romanum/remote'
 require 'colorized_string'
 
 module Calrom
