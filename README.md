@@ -108,10 +108,11 @@ and disabling colours:
 ```bash
 # shell-like comments can be used in configuration files
 
---calendar=czech-cs       # celebrations common for the whole Czech Republic
---calendar=czech-cechy-cs # Bohemia
---calendar=czech-praha-cs # archdiocese of Prague
+--calendar=czech-praha-cs # calendar of the archdiocese of Prague
 --calendar=~/calendar_data/local_church.txt # path to a custom calendar file with proper celebrations of the parish where I live (titular feast of the church, dedication)
+
+--load-parents # load also parent calendars specified by the calendar file(s)
+               # (default if just one calendar file is specified, but we specified two)
 
 --no-color # disable colours
 ```
