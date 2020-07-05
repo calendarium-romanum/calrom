@@ -3,7 +3,7 @@ Then(/^the output should contain (\d+) to (\d+) day entries$/) do |from, to|
   day_entries =
     last_command_started.stdout
       .lines
-      .select {|l| l =~ /^\w+\s+\d{1,2}/}
+      .select {|l| l =~ /^\w{3}\s+\d{1,2}\s+/}
 
   expect(day_entries.size).to be_between(from.to_i, to.to_i)
 end
