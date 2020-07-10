@@ -27,7 +27,12 @@ module Calrom
         HTTPI.log = false
       end
 
-      config.formatter.call calendar, config.date_range
+      begin
+        config.formatter.call calendar, config.date_range
+      rescue CR::Remote::UnexpectedResponseError => e
+        STDERR.puts "Remote calendar query failed: #{e.message}"
+        exit 1
+      end
     end
 
     private
