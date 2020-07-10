@@ -8,6 +8,7 @@ module Calrom
       self.date_range = Month.new(today.year, today.month)
       self.sanctorale = []
       self.configs = []
+      self.verbose = false
     end
 
     attr_accessor :today,
@@ -17,7 +18,8 @@ module Calrom
                   :sanctorale,
                   :locale,
                   :configs,
-                  :load_parents
+                  :load_parents,
+                  :verbose
 
     def calendar
       if is_remote_calendar?

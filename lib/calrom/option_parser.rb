@@ -130,6 +130,10 @@ module Calrom
           config.colours = value
         end
 
+        opts.on('-v', '--verbose', 'enable verbose output') do
+          config.verbose = true
+        end
+
         opts.separator 'Debugging options'
 
         # cal

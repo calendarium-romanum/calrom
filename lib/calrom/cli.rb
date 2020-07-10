@@ -23,6 +23,10 @@ module Calrom
         exit 1
       end
 
+      unless config.verbose
+        HTTPI.log = false
+      end
+
       config.formatter.call calendar, config.date_range
     end
 
