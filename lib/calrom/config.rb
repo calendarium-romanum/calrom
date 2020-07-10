@@ -23,6 +23,10 @@ module Calrom
 
     def calendar
       if is_remote_calendar?
+        if @sanctorale.size > 1
+          raise InputError.new '--calendar option provided multiple times, but at least one of the calendars is remote. Remote calendars cannot be layered.'
+        end
+
         return CR::Remote::Calendar.new date_range.first.year, @sanctorale.last
       end
 
