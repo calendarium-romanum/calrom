@@ -19,3 +19,10 @@ Feature: Remote calendars
     And the stderr should contain "--calendar option provided multiple times, but at least one of the calendars is remote."
     And the stderr should contain "Remote calendars cannot be layered."
     And the stderr should not contain traceback
+
+  Scenario: attempt calendar layering (reversed option order)
+    When I run `calrom --calendar=http://calapi.inadiutorium.cz/api/v0/en/calendars/unknown --calendar=universal-en 2001-01-02`
+    Then the exit status should be 1
+    And the stderr should contain "--calendar option provided multiple times, but at least one of the calendars is remote."
+    And the stderr should contain "Remote calendars cannot be layered."
+    And the stderr should not contain traceback

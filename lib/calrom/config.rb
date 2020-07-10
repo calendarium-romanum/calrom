@@ -114,7 +114,7 @@ module Calrom
     end
 
     def is_remote_calendar?
-      @sanctorale.last =~ /^https?:\/\//
+      !!@sanctorale.find {|s| s =~ /^https?:\/\// }
     end
   end
 end
