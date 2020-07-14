@@ -9,6 +9,7 @@ module Calrom
       self.sanctorale = []
       self.configs = []
       self.verbose = false
+      self.highlight = Set.new(%i(colour rank today))
     end
 
     attr_accessor :today,
@@ -19,6 +20,7 @@ module Calrom
                   :locale,
                   :configs,
                   :load_parents,
+                  :highlight,
                   :verbose
 
     def calendar
@@ -98,13 +100,21 @@ module Calrom
         return Highlighter::No.new
       end
 
-      colourful.new
+      Highlighter::Selective.new highlight, colourful.new
     end
 
     # Should calendars be loaded including parent files they reference?
     def load_parents?
       load_parents == true ||
         (load_parents.nil? && @sanctorale.size == 1)
+    end
+
+    def highlight
+      if date_range.is_a? Day
+        @highlight - [:today]
+      else
+        @highlight
+      end
     end
 
     private
