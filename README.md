@@ -100,7 +100,8 @@ or disabling colours (if you hate colourful output).
 
 If a custom configuration file location is specified on the command line,
 `$ calrom --config=path/to/my/custom/config`, the standard system-wide and user-specific configuration
-files are *not* loaded.
+files are *not* loaded. Empty config path `$ calrom --config=` makes calrom ignore all configuration
+files and use the built-in default configuration.
 
 Example configuration file, loading the proper calendar of the archdiocese of Prague
 and disabling colours:
@@ -117,7 +118,8 @@ and disabling colours:
 --no-color # disable colours
 ```
 
-(Configuration file format is inspired by [.rspec][dotrspec].)
+(Configuration file format is inspired by [.rspec][dotrspec], [.yardopts][dotyardopts]
+and others.)
 
 ## Running tests
 
@@ -182,3 +184,4 @@ GNU/GPL 3.0 or later
 [cal]: https://www.freebsd.org/cgi/man.cgi?query=cal
 [taoup]: http://www.catb.org/esr/writings/taoup/html/ch10s05.html
 [dotrspec]: https://relishapp.com/rspec/rspec-core/v/2-0/docs/configuration/read-command-line-configuration-options-from-files
+[dotyardopts]: https://rubydoc.info/gems/yard/file/docs/GettingStarted.md#yardopts-options-file
