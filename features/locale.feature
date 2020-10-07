@@ -5,17 +5,17 @@ Feature: Locale selection
 Scenario: default
   When I run `calrom 2000-01-12`
   Then the exit status should be 0
-  And the output should contain "Wednesday, 1st week in Ordinary Time,  ferial"
+  And the output should contain "Wednesday, 1st week in Ordinary Time"
 
 Scenario: select non-English calendar
   When I run `calrom --calendar=universal-la 2000-01-12`
   Then the exit status should be 0
-  And the output should contain "Feria quarta, hebdomada I per annum,  feria"
+  And the output should contain "Feria quarta, hebdomada I per annum"
 
 Scenario: multiple calendars specified, the last one's locale wins
   When I run `calrom --calendar=universal-la --calendar=czech-cechy-cs 2000-01-12`
   Then the exit status should be 0
-  And the output should contain "Středa 1. týdne v mezidobí,  ferie"
+  And the output should contain "Středa 1. týdne v mezidobí"
 
 Scenario: French calendar, English locale, sanctorale celebration
   When I run `calrom --calendar=universal-fr --locale=en 2000-01-03`
@@ -26,7 +26,7 @@ Scenario: French calendar, English locale, sanctorale celebration
 Scenario: French calendar, English locale, temporale celebration
   When I run `calrom --calendar=universal-fr --locale=en 2000-01-12`
   Then the exit status should be 0
-  And the output should contain "Wednesday, 1st week in Ordinary Time,  ferial"
+  And the output should contain "Wednesday, 1st week in Ordinary Time"
 
 Scenario: specify unsupported locale
   When I run `calrom --locale=xx`
