@@ -1,5 +1,9 @@
 # Changelog
 
+### Next features
+
+- added option -3 to list the previous, current and next month surrounding today
+
 ## [0.3.0] 2020-06-21
 
 ### Added
