@@ -24,7 +24,7 @@ module Calrom
       month = today.month
       day = nil
       another_day = nil
-      number = nil
+
       range_type = nil
 
       opt_parser = CustomizedOptionParser.new do |opts|
