@@ -24,7 +24,7 @@ module Calrom
       month = today.month
       day = nil
       another_day = nil
-
+      number = nil
       range_type = nil
 
       opt_parser = CustomizedOptionParser.new do |opts|
@@ -42,6 +42,7 @@ module Calrom
           calrom 2000        - whole year 2000
           calrom -y 2000     - also whole year 2000
           calrom -y          - whole current year
+          calrom -3          - display the previous, current and next month surrounding today
 
         Specifying date range (not cal-compatible):
 
@@ -68,6 +69,11 @@ module Calrom
           else
             month = value
           end
+        end
+
+        # cal
+        opts.on('-3', 'display the previous, current and next month surrounding today') do |value|
+          range_type = '-3'
         end
 
         # cal
@@ -241,6 +247,8 @@ module Calrom
           Day.new(day)
         when :free
           DateRange.new(day, another_day)
+        when '-3'
+          [Date.new(year, (month - 1)), Date.new(year, month), Date.new(year, (month + 1))]
         else
           Month.new(year, month)
         end

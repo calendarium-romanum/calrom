@@ -78,6 +78,16 @@ describe Calrom::OptionParser do
       expect(range.first).to eq(Date.today + 1)
     end
 
+    it 'specified number' do
+      year = Date.today.year
+      month = Date.today.month
+
+      range = described_class.(%w(-3)).date_range
+      expect(range).to match_array([
+        Date.new(year, (month - 1)), Date.new(year, month), Date.new(year, (month + 1))
+      ])
+    end
+
     describe 'conflicting range type options' do
       it 'later wins - year' do
         range = described_class.(%w(-m 1 -y)).date_range
