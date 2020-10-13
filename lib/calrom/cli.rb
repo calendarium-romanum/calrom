@@ -10,7 +10,7 @@ module Calrom
         )
 
         calendar = config.calendar
-      rescue ::OptionParser::ParseError, InputError => e
+      rescue OptionParser::Error, InputError => e
         STDERR.puts e.message
         exit 1
       end
@@ -57,7 +57,7 @@ module Calrom
 
         begin
           OptionParser.call(options)
-        rescue ::OptionParser::ParseError => e
+        rescue OptionParser::Error => e
           raise InputError.new("Error loading '#{f}': #{e.message}")
         end
 

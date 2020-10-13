@@ -6,6 +6,13 @@ module Calrom
   class OptionParser
     using PatternMatch
 
+    # Raised when the options being parsed are invalid.
+    #
+    # Exceptions raised by the option parsing library are translated to this exception,
+    # thus hiding implementation details (the option parsing library's exception types)
+    # from the outer world.
+    class Error < RuntimeError; end
+
     class CustomizedOptionParser < ::OptionParser
       def separator(string)
         super "\n" + string
@@ -167,7 +174,11 @@ module Calrom
         end
       end
 
-      arguments = opt_parser.parse argv
+      begin
+        arguments = opt_parser.parse argv
+      rescue ::OptionParser::ParseError => e
+        raise Error.new(e.message)
+      end
 
       iso_date_regexp = /^(\d{4}-\d{2}-\d{2})$/
       match(arguments) do
