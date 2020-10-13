@@ -170,7 +170,7 @@ command line interface
 
 * [(BSD version of) `cal`][cal] should be mimicked where reasonable
 * the [Command-Line Options][taoup] chapter from E. S. Raymond's
-  "The Art of Unix Programming" should be consulted in the rest
+  *The Art of Unix Programming* should be consulted in the rest
   of cases
 
 ## License
