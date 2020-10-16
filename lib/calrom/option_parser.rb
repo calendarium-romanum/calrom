@@ -73,7 +73,7 @@ module Calrom
 
         # cal
         opts.on('-3', 'display the previous, current and next month surrounding today') do |value|
-          range_type = '-3'
+          range_type = :"#{3}".to_s.to_sym
         end
 
         # cal
@@ -247,8 +247,8 @@ module Calrom
           Day.new(day)
         when :free
           DateRange.new(day, another_day)
-        when '-3'
-          [Date.new(year, (month - 1)), Date.new(year, month), Date.new(year, (month + 1))]
+        when :"#{3}".to_s.to_sym
+          DateRange.new(last_month, next_month)
         else
           Month.new(year, month)
         end
@@ -259,6 +259,16 @@ module Calrom
       end
 
       range
+    end
+
+    def last_month
+      Date.new(Time.now.year, (Time.now.month - 1), 1)
+    end
+
+    def next_month
+      last_day_next_month = (Time.new(Time.now.year, ((Time.now.month + 1) % 12) + 1) - 1).day
+
+      Date.new(Time.now.year, (Time.now.month + 1), last_day_next_month)
     end
   end
 end

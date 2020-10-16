@@ -78,14 +78,16 @@ describe Calrom::OptionParser do
       expect(range.first).to eq(Date.today + 1)
     end
 
-    it 'specified number' do
-      year = Date.today.year
-      month = Date.today.month
+    it 'specified previous, current and next month surrounding today' do
+      year = Time.now.year
+      month = Time.now.month
+      last_day_next_month = (Time.new(Time.now.year, ((Time.now.month + 1) % 12) + 1) - 1).day
 
       range = described_class.(%w(-3)).date_range
-      expect(range).to match_array([
-        Date.new(year, (month - 1)), Date.new(year, month), Date.new(year, (month + 1))
-      ])
+
+      expect(range).to be_a Calrom::DateRange
+      expect(range.first).to eq(Date.new(year, (month - 1), 1))
+      expect(range.last).to eq(Date.new(year, (month + 1), last_day_next_month))
     end
 
     describe 'conflicting range type options' do
