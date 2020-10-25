@@ -41,10 +41,35 @@ module Calrom
     end
   end
 
+  class ThreeMonths < DateRange
+    def initialize(year, month)
+      super first_day_of_last_month(year, month), last_day_of_next_month(year, month)
+    end
+
+    private
+
+    def first_day_of_last_month(year, month)
+      if month == 1
+        Date.new(year - 1, 12, 1)
+      else
+        Date.new(year, month - 1, 1)
+      end
+    end
+
+    def last_day_of_next_month(year, month)
+      if month == 12
+        Date.new(year + 1, 1, -1)
+      else
+        Date.new(year, month + 1, -1)
+      end
+    end
+  end
+
   class Month < DateRange
     def initialize(year, month)
       @year = year
       @month = month
+
       super Date.new(year, month, 1), next_month_beginning - 1
     end
 
