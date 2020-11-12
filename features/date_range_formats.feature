@@ -55,5 +55,5 @@ Feature: Date range formats
   Scenario: cal-like - -3
     When I run `calrom -3`
     Then the exit status should be 0
-    # the output will consider the actual month and year
-    And the output should match /^\s+September 2020\s+October 2020\s+November 2020/
+    # the output will consider the current month, year and all days of month
+    And the output should match /^\s+January|February|March|April|May|June|July|August|September|October|November|December/
