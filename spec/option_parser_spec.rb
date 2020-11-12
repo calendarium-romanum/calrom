@@ -79,8 +79,8 @@ describe Calrom::OptionParser do
     end
 
     it 'specified previous, current and next month surrounding today' do
-      year = Time.now.year
-      month = Time.now.month
+      year = Date.today.year
+      month = Date.today.month
       range = described_class.(%w(-3)).date_range
 
       expect(range).to be_a Calrom::DateRange
