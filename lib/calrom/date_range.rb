@@ -49,19 +49,13 @@ module Calrom
     private
 
     def first_day_of_last_month(year, month)
-      if month == 1
-        Date.new(year - 1, 12, 1)
-      else
-        Date.new(year, month - 1, 1)
-      end
+      Date.new(year, month, 1).prev_month
     end
 
     def last_day_of_next_month(year, month)
-      if month == 12
-        Date.new(year + 1, 1, -1)
-      else
-        Date.new(year, month + 1, -1)
-      end
+      n = Date.new(year, month).next_month
+
+      Date.new(n.year, n.month, -1)
     end
   end
 
@@ -70,7 +64,7 @@ module Calrom
       @year = year
       @month = month
 
-      super Date.new(year, month, 1), next_month_beginning - 1
+      super Date.new(year, month, 1), Date.new(year, month, -1)
     end
 
     def to_s
@@ -84,7 +78,7 @@ module Calrom
     end
 
     def succ
-      n = next_month_beginning
+      n = Date.new(@year, @month, 1).next_month
       self.class.new(n.year, n.month)
     end
 
@@ -101,16 +95,6 @@ module Calrom
     protected
 
     attr_reader :year, :month
-
-    private
-
-    def next_month_beginning
-      if @month == 12
-        Date.new(@year + 1, 1, 1)
-      else
-        Date.new(@year, @month + 1, 1)
-      end
-    end
   end
 
   class Day < DateRange
