@@ -5,7 +5,7 @@ module Calrom
   module Formatter
     class Overview < Formatter
       def call(calendar, date_range, io = STDOUT)
-        colnum = (date_range.is_a?(Year) || date_range.each_month.to_a.size > 3) ? 3 : 1 # TODO: expose configuration
+        colnum = 3 # TODO: expose configuration
         if date_range.is_a? Year
           io.puts center_on(weekdays.size * colnum + 2 * (colnum - 1), date_range.to_s)
         end
