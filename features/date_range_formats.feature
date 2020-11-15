@@ -15,14 +15,14 @@ Feature: Date range formats
     And the output should match /^\s+May \d{4}/
 
   Scenario: cal-like - month with previous year flag
-    # we use the debugging option -d to set fixed current date
-    When I run `calrom -d 2010-01 -m 5p`
+    When current year is 2010 and month 1
+    And I run `calrom -m 5p`
     Then the exit status should be 0
     And the output should match /^\s+May 2009\s*$/
 
   Scenario: cal-like - month with following year flag
-    # we use the debugging option -d to set fixed current date
-    When I run `calrom -d 2010-01 -m 5f`
+    When current year is 2010 and month 1
+    And I run `calrom -m 5f`
     Then the exit status should be 0
     And the output should match /^\s+May 2011\s*$/
 
