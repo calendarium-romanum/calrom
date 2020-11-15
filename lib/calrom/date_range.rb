@@ -13,7 +13,6 @@ module Calrom
         .each_with_index do |m,i|
         if i == 0 && first.day > 1
           # first month, incomplete
-          end_of_month = first.next_month - first.day + 1
           yield self.class.new(first, m.last)
         elsif m.first.year == last.year && m.first.month == last.month && last != m.last
           # last month, incomplete
