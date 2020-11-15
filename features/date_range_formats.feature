@@ -51,3 +51,9 @@ Feature: Date range formats
     When I run `calrom 1992-01-02 1992-05-12`
     Then the exit status should be 0
     And the output should match /^\s+January 1992\s+February 1992/
+
+  Scenario: cal-like - -3
+    When I run `calrom -3`
+    Then the exit status should be 0
+    # the output will consider the current month, year and all days of month
+    And the output should match /^\s+January|February|March|April|May|June|July|August|September|October|November|December/
