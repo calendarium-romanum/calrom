@@ -27,6 +27,18 @@ module Calrom
       config = Config.new
 
       today = config.today
+
+      # TODO processing environment variables does not really belong here - find a better place
+      var_name = 'CALROM_CURRENT_DATE'
+      env_today = ENV[var_name]
+      if env_today
+        begin
+          today = Date.parse env_today
+        rescue ArgumentError
+          raise InputError.new "value of environment variable #{var_name} is not a valid date"
+        end
+      end
+
       year = today.year
       month = today.month
       day = nil
@@ -89,17 +101,17 @@ module Calrom
         end
 
         opts.on('--yesterday', 'display previous day') do |value|
-          day = Date.today - 1
+          day = today - 1
           range_type = :day
         end
 
         opts.on('--today', 'display current day') do |value|
-          day = Date.today
+          day = today
           range_type = :day
         end
 
         opts.on('--tomorrow', 'display following day') do |value|
-          day = Date.today + 1
+          day = today + 1
           range_type = :day
         end
 
