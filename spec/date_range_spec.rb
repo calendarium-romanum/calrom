@@ -93,23 +93,23 @@ describe 'date ranges' do
 
   describe Calrom::ThreeMonths do
     it 'display the previous, current and next month surrounding today' do
-      subject = described_class.new(2002, 03)
-      expect(subject.first).to eq(Date.new(2002, 2))
-      expect(subject.last).to eq(Date.new(2002, 4, -1))
+      subject = described_class.new(2002, 3)
+      expect(subject.first).to eq Date.new(2002, 2, 1)
+      expect(subject.last).to eq Date.new(2002, 4, 30)
     end
 
     it 'when current mouth is January, print December (last year), \
         January and February (current year)' do
-      subject = described_class.new(2002, 01)
-      expect(subject.first).to eq(Date.new(2001, 12))
-      expect(subject.last).to eq(Date.new(2002, 2, -1))
+      subject = described_class.new(2002, 1)
+      expect(subject.first).to eq Date.new(2001, 12, 1)
+      expect(subject.last).to eq Date.new(2002, 2, 28)
     end
 
     it 'when current mouth is December, print November, \
         December (current year) and January (next year)' do
       subject = described_class.new(2002, 12)
-      expect(subject.first).to eq(Date.new(2002, 11))
-      expect(subject.last).to eq(Date.new(2003, 1, -1))
+      expect(subject.first).to eq Date.new(2002, 11, 1)
+      expect(subject.last).to eq Date.new(2003, 1, 31)
     end
   end
 end
