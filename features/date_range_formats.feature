@@ -53,7 +53,9 @@ Feature: Date range formats
     And the output should match /^\s+January 1992\s+February 1992/
 
   Scenario: cal-like - -3
-    When I run `calrom -3`
+    When current year is 2010 and month 1
+    And I run `calrom -3`
     Then the exit status should be 0
-    # the output will consider the current month, year and all days of month
-    And the output should match /^\s+January|February|March|April|May|June|July|August|September|October|November|December/
+    And the output should contain "December 2009"
+    And the output should contain "January 2010"
+    And the output should contain "February 2010"
