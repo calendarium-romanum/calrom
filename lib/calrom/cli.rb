@@ -4,9 +4,11 @@ module Calrom
       begin
         config_files = OptionParser.call(argv).configs
 
+        config = EnvironmentReader.call
         config = OptionParser.call(
           rc_options(config_files.empty? ? nil : config_files) +
-          argv
+          argv,
+          config
         )
 
         calendar = config.calendar

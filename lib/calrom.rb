@@ -9,6 +9,7 @@ end
 require 'calrom/version'
 require 'calrom/cli'
 require 'calrom/option_parser'
+require 'calrom/environment_reader'
 require 'calrom/config'
 require 'calrom/date_range'
 require 'calrom/rc_parser'
