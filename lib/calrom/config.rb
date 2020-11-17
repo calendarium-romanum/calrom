@@ -82,6 +82,8 @@ module Calrom
     def formatter
       if @formatter == :list || (@formatter.nil? && date_range.is_a?(Day))
         Formatter::List.new highlighter(Highlighter::List), today
+      elsif @formatter == :short
+        Formatter::Condensed.new highlighter(Highlighter::List), today
       elsif @formatter == :easter
         Formatter::Easter.new
       elsif @formatter == :calendars

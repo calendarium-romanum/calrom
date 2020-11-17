@@ -75,6 +75,11 @@ Print detailed listing:
 
 `$ calrom -l`
 
+Print current day in a condensed format (intended mainly for use cases like
+window manager toolbars):
+
+`$ calrom --format=short --today`
+
 Disable colours:
 
 `$ calrom --no-color`
@@ -137,7 +142,7 @@ Clone the repository, `$ bundle install` to install dependencies, then:
 * [ ] month/year overview - options and output mostly mimicking
   the BSD Unix [`cal`][cal] utility,
   but with liturgical colours and celebration ranks
-* [ ] condensed format (but with detailed information) suitable for awesome/i3 toolbars etc.
+* [x] condensed format (but with detailed information) suitable for awesome/i3 toolbars etc.
 * [x] machine-readable detailed listing
 * [ ] year summary: lectionary cycles, movable feasts
 * [x] configuration file to set default options

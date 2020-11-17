@@ -19,6 +19,11 @@ Feature: Main modes
     Then the exit status should be 0
     And the output should contain 1 to 1 day entries
 
+  Scenario: Condensed mode
+    When I run `calrom --format=short 2000-01-06`
+    Then the exit status should be 0
+    And the output should contain "W* The Epiphany"
+
   Scenario: date of Easter
     When I run `calrom -e 2000`
     Then the exit status should be 0
