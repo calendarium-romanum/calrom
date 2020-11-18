@@ -119,6 +119,11 @@ module Calrom
           config.transfer_to_sunday << value.to_sym
         end
 
+        # TODO: list supported values (needs CR::Temporale::Extensions.all)
+        opts.on('--temporale-extension=EXTENSION', 'use temporale extension') do |value|
+          config.temporale_extensions << CR::Temporale::Extensions.const_get(value)
+        end
+
         opts.on('--locale=LOCALE', 'override language in which temporale celebration titles are rendered' + supported_values(I18n.available_locales)) do |value|
           config.locale = value.to_sym
         end

@@ -11,6 +11,7 @@ module Calrom
       self.verbose = false
       self.highlight = Set.new(%i(colour rank today))
       self.transfer_to_sunday = []
+      self.temporale_extensions = []
     end
 
     attr_accessor :today,
@@ -19,6 +20,7 @@ module Calrom
                   :colours,
                   :sanctorale,
                   :transfer_to_sunday,
+                  :temporale_extensions,
                   :locale,
                   :configs,
                   :load_parents,
@@ -78,7 +80,7 @@ module Calrom
     end
 
     def temporale_options
-      {transfer_to_sunday: transfer_to_sunday}
+      {transfer_to_sunday: transfer_to_sunday, extensions: temporale_extensions}
     end
 
     def locale
