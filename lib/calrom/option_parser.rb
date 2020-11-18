@@ -114,8 +114,12 @@ module Calrom
           config.load_parents = value
         end
 
-        locales_help = I18n.available_locales.join(', ')
-        opts.on('--locale=LOCALE', "override language in which temporale celebration titles are rendered (supported: #{locales_help})") do |value|
+        transferable = CR::Temporale::SUNDAY_TRANSFERABLE_SOLEMNITIES
+        opts.on('--to-sunday=SOLEMNITY', transferable, 'transfer solemnity to Sunday' + supported_values(transferable)) do |value|
+          config.transfer_to_sunday << value.to_sym
+        end
+
+        opts.on('--locale=LOCALE', 'override language in which temporale celebration titles are rendered' + supported_values(I18n.available_locales)) do |value|
           config.locale = value.to_sym
         end
 
@@ -271,6 +275,10 @@ module Calrom
       end
 
       range
+    end
+
+    def supported_values(values)
+       " (supported: #{values.join(', ')})"
     end
   end
 end

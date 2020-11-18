@@ -10,6 +10,7 @@ module Calrom
       self.configs = []
       self.verbose = false
       self.highlight = Set.new(%i(colour rank today))
+      self.transfer_to_sunday = []
     end
 
     attr_accessor :today,
@@ -17,6 +18,7 @@ module Calrom
                   :formatter,
                   :colours,
                   :sanctorale,
+                  :transfer_to_sunday,
                   :locale,
                   :configs,
                   :load_parents,
@@ -32,7 +34,7 @@ module Calrom
         return CR::Remote::Calendar.new date_range.first.year, @sanctorale.last
       end
 
-      CR::PerpetualCalendar.new(sanctorale: build_sanctorale)
+      CR::PerpetualCalendar.new(sanctorale: build_sanctorale, temporale_options: temporale_options)
     end
 
     def build_sanctorale
@@ -73,6 +75,10 @@ module Calrom
       end
 
       CR::SanctoraleFactory.create_layered(*data)
+    end
+
+    def temporale_options
+      {transfer_to_sunday: transfer_to_sunday}
     end
 
     def locale
