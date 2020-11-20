@@ -30,7 +30,7 @@ module Calrom
       end
 
       begin
-        config.formatter.call calendar, config.date_range
+        config.build_formatter.call calendar, config.date_range
       rescue CR::Remote::UnexpectedResponseError => e
         STDERR.puts "Remote calendar query failed: #{e.message}"
         exit 1

@@ -14,18 +14,27 @@ module Calrom
       self.temporale_extensions = []
     end
 
-    attr_accessor :today,
-                  :date_range,
-                  :formatter,
-                  :colours,
-                  :sanctorale,
-                  :transfer_to_sunday,
-                  :temporale_extensions,
-                  :locale,
-                  :configs,
-                  :load_parents,
-                  :highlight,
-                  :verbose
+    ATTRIBUTES = [
+      :today,
+      :date_range,
+      :formatter,
+      :colours,
+      :sanctorale,
+      :transfer_to_sunday,
+      :temporale_extensions,
+      :locale,
+      :configs,
+      :load_parents,
+      :highlight,
+      :verbose,
+    ]
+
+    attr_accessor *ATTRIBUTES
+
+    def ==(b)
+      self.class == b.class &&
+        ATTRIBUTES.all? {|prop| public_send(prop) == b.public_send(prop) }
+    end
 
     def calendar
       if is_remote_calendar?
@@ -87,7 +96,7 @@ module Calrom
       @locale || locale_in_file_metadata || DEFAULT_LOCALE
     end
 
-    def formatter
+    def build_formatter
       if @formatter == :list || (@formatter.nil? && date_range.is_a?(Day))
         Formatter::List.new highlighter(Highlighter::List), today
       elsif @formatter == :short

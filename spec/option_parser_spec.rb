@@ -149,4 +149,74 @@ describe Calrom::OptionParser do
                )
     end
   end
+
+  describe 'equivalency of result based on input' do
+    describe 'non-equivalent options' do
+      [
+        [%w(--today), %w()],
+        [%w(-m1), %w(-m2)],
+      ].each do |a,b|
+        it "'a' does not equal 'b'" do
+          expect(described_class.(a))
+            .not_to eq described_class.(b)
+        end
+      end
+    end
+
+    describe 'equivalent options' do
+      [
+        # literally the same input
+        [%w(), %w()],
+        [%w(1990), %w(1990)],
+        [%w(-m1), %w(-m1)],
+
+        # empty vs. explicitly requested default settings
+        [%w(), %w(--locale=en)],
+
+        # short vs. long options
+        [%w(-m1), %w(--month=1)],
+        [%w(-y), %w(--year)],
+
+        # long options: equal sign vs. space
+        [%w(--config=a), %w(--config a)],
+
+        # long options: full vs. shortenned (shortest unambiguous)
+        [%w(--config=a), %w(--con=a)],
+        [%w(--month=1), %w(--m=1)],
+        [%w(--year), %w(--yea)],
+        [%w(--yesterday), %w(--yes)],
+        [%w(--today), %w(--tod)],
+        [%w(--tomorrow), %w(--tom)],
+        [%w(--calendar=universal-en), %w(--ca=universal-en)],
+        [%w(--load-parents), %w(--loa)],
+        [%w(--no-load-parents), %w(--no-l)],
+        [%w(--to-sunday=epiphany), %w(--to-=epiphany)],
+        [%w(--temporale-extension=ChristEternalPriest), %w(--te=ChristEternalPriest)],
+        [%w(--locale=en), %w(--loc=en)],
+        [%w(--list), %w(--li)],
+        [%w(--format=overview), %w(--f=overview)],
+        [%w(--easter), %w(--e)],
+        [%w(--calendars), %w(--calendars)], # no shortening possible due to --calendar=
+        [%w(--color), %w(--col)],
+        [%w(--no-color), %w(--no-c)],
+        [%w(--verbose), %w(--verb)],
+        [%w(--current-month=2000-01), %w(--cu=2000-01)],
+        [%w(--highlight-date=2000-01-01), %w(--hi=2000-01-01)],
+        [%w(--version), %w(--vers)],
+        [%w(--help), %w(--h)],
+
+        # pre-defined option values: full vs. shortenned
+        [%w(--to-sunday=epiphany), %w(--to-sunday=e)],
+        [%w(--to-sunday=ascension), %w(--to-sunday=a)],
+
+        [%w(--format=overview), %w(--format=o)],
+        [%w(--format=overview), %w(-fo)], # short option and shortenned predefined value
+      ].each do |a,b|
+        it "'a' equals 'b'" do
+          expect(described_class.(a))
+            .to eq described_class.(b)
+        end
+      end
+    end
+  end
 end
