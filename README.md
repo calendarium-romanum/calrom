@@ -78,7 +78,7 @@ Print detailed listing:
 Print current day in a condensed format (intended mainly for use cases like
 window manager toolbars):
 
-`$ calrom --format=short --today`
+`$ calrom --format=condensed --today`
 
 Disable colours:
 

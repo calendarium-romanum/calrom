@@ -134,7 +134,10 @@ module Calrom
           config.formatter = :list
         end
 
-        supported_formats = %i(overview list short csv json)
+        supported_formats =
+          Calrom::Formatter.constants
+            .collect(&:downcase)
+            .delete_if {|i| i == :formatter }
         formats_help = supported_formats.join(', ')
         opts.on('--format=FORMAT', supported_formats, "specify output format (supported: #{formats_help})") do |value|
           config.formatter = value

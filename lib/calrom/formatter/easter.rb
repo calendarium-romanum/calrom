@@ -1,7 +1,7 @@
 module Calrom
   module Formatter
     # Prints (only) date of Easter for the specified year.
-    class Easter
+    class Easter < Formatter
       def call(calendar, date_range)
         unless date_range.is_a?(Year) || date_range.is_a?(Month)
           raise 'unexpected date range, expected a year'

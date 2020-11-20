@@ -2,7 +2,7 @@ require 'csv'
 
 module Calrom
   module Formatter
-    class Csv
+    class Csv < Formatter
       def call(calendar, date_range)
         CSV do |out|
           out << %w(date title symbol rank rank_num colour season)

@@ -97,24 +97,21 @@ module Calrom
     end
 
     def build_formatter
-      if @formatter == :list || (@formatter.nil? && date_range.is_a?(Day))
-        Formatter::List.new highlighter(Highlighter::List), today
-      elsif @formatter == :short
-        Formatter::Condensed.new highlighter(Highlighter::List), today
-      elsif @formatter == :easter
-        Formatter::Easter.new
-      elsif @formatter == :calendars
-        Formatter::Calendars.new highlighter(Highlighter::Overview), today
-      elsif @formatter == :csv
-        Formatter::Csv.new
-      elsif @formatter == :json
-        Formatter::Json.new
-      else
-        Formatter::Overview.new highlighter(Highlighter::Overview), today
+      highlighter = Highlighter::List
+      klass = @formatter && Formatter.const_get(@formatter.capitalize)
+
+      if @formatter.nil?
+        klass = date_range.is_a?(Day) ? Formatter::List : Formatter::Overview
       end
+
+      if [Formatter::Calendars, Formatter::Overview].include? klass
+        highlighter = Highlighter::Overview
+      end
+
+      klass.new build_highlighter(highlighter), today
     end
 
-    def highlighter(colourful)
+    def build_highlighter(colourful)
       if (self.colours == false || (self.colours.nil? && !STDOUT.isatty))
         return Highlighter::No.new
       end

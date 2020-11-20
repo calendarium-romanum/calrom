@@ -3,7 +3,7 @@ require 'json'
 module Calrom
   module Formatter
     # JSON format mimicking Church Calendar API v0 (https://github.com/igneus/church-calendar-api)
-    class Json
+    class Json < Formatter
       def call(calendar, date_range)
         # We build the outer JSON Array manually in order to be able to print
         # vast amounts of calendar data without risking RAM exhaustion.
