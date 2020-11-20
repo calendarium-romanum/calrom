@@ -193,7 +193,7 @@ module Calrom
         raise Error.new(e.message)
       end
 
-      iso_date_regexp = /^(\d{4}-\d{2}-\d{2})$/
+      iso_date_regexp = /^(\d{4,}-\d{2}-\d{2})$/
       match(arguments) do
         with(_[iso_date_regexp.(date)]) do
           range_type = :day

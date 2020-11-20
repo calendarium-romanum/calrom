@@ -78,6 +78,18 @@ describe Calrom::OptionParser do
       expect(range.first).to eq(Date.today + 1)
     end
 
+    it 'specified date' do
+      range = described_class.(%w(2000-01-02)).date_range
+      expect(range).to be_a Calrom::Day
+      expect(range.first).to eq(Date.new(2000, 1, 2))
+    end
+
+    it 'specified date in distant future' do
+      range = described_class.(%w(100000-01-02)).date_range
+      expect(range).to be_a Calrom::Day
+      expect(range.first).to eq(Date.new(100000, 1, 2))
+    end
+
     it 'specified previous, current and next month surrounding today' do
       year = Date.today.year
       month = Date.today.month
