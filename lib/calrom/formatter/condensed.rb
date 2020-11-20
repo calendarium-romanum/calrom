@@ -15,8 +15,10 @@ module Calrom
         colour = highlighter.colour(c.colour.name[0].upcase, c.colour)
         rank = highlighter.rank(rank(c.rank), c.rank)
         title = short_title c
+        size = liturgical_day.celebrations.size
+        more = size > 1 ? " +#{size-1}" : ''
 
-        puts "#{colour}#{rank} #{title}"
+        puts "#{colour}#{rank} #{title}#{more}"
       end
 
       def rank(rank)
