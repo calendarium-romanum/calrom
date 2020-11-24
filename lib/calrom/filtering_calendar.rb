@@ -9,12 +9,16 @@ module Calrom
       @days_filter = proc do |day|
         days_filter_expressions.all? do |expr|
           day.instance_eval expr
+        rescue StandardError => e
+          raise filter_error e, expr
         end
       end
 
       @celebrations_filter = proc do |celebration|
         celebrations_filter_expressions.all? do |expr|
           celebration.instance_eval expr
+        rescue StandardError => e
+          raise filter_error e, expr
         end
       end
     end
@@ -36,6 +40,12 @@ module Calrom
         day = self[date]
         yield day if (include_skipped || !day.skipped?)
       end
+    end
+
+    private
+
+    def filter_error(exception, expression)
+      InputError.new "Filter expression '#{expression}' raised #{exception.class}: #{exception.message}"
     end
 
     class FilteredDay < SimpleDelegator

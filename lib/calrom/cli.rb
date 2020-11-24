@@ -34,6 +34,9 @@ module Calrom
       rescue CR::Remote::UnexpectedResponseError => e
         STDERR.puts "Remote calendar query failed: #{e.message}"
         exit 1
+      rescue InputError => e
+        STDERR.puts e.message
+        exit 1
       end
     end
 

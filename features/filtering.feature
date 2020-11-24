@@ -25,3 +25,9 @@ Scenario: Filter celebrations by multiple expressions
   Then the exit status should be 0
   And the output should match /Thursday.+?in Ordinary Time/
   And the output should not contain "Hilary"
+
+Scenario: Filter expression raising an exception
+  When I run `calrom --filter-days="1/0"`
+  Then the exit status should be 1
+  And the output should contain "Filter expression '1/0' raised ZeroDivisionError: divided by 0"
+  And the stderr should not contain traceback
