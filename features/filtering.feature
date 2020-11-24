@@ -13,3 +13,15 @@ Scenario: Filter days by multiple expressions
   And the output should have 22 lines
   And the output should contain "Mary"
   And the output should contain "Ascension"
+
+Scenario: Filter celebrations
+  When I run `calrom --filter-celebrations="ferial?" -l 2000-01-13`
+  Then the exit status should be 0
+  And the output should match /Thursday.+?in Ordinary Time/
+  And the output should not contain "Hilary"
+
+Scenario: Filter celebrations by multiple expressions
+  When I run `calrom --filter-celebrations="ferial?" --filter-celebrations="cycle == :temporale" -l 2000-01-13`
+  Then the exit status should be 0
+  And the output should match /Thursday.+?in Ordinary Time/
+  And the output should not contain "Hilary"

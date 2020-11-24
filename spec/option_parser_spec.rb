@@ -211,7 +211,8 @@ describe Calrom::OptionParser do
         [%w(--locale=en), %w(--loc=en)],
         [%w(--list), %w(--li)],
         [%w(--format=overview), %w(--fo=overview)],
-        [%w(--filter-days=true), %w(--fi=true)],
+        [%w(--filter-days=true), %w(--f-d=true)],
+        [%w(--filter-celebrations=true), %w(--f-c=true)],
         [%w(--easter), %w(--e)],
         [%w(--calendars), %w(--calendars)], # no shortening possible due to --calendar=
         [%w(--color), %w(--col)],

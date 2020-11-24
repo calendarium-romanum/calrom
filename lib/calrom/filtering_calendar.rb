@@ -3,12 +3,18 @@ require 'delegate'
 module Calrom
   # decorates /(Perpetual)?Calendar/, returns data filtered
   class FilteringCalendar < SimpleDelegator
-    def initialize(calendar, days_filter_expressions=[])
+    def initialize(calendar, days_filter_expressions=[], celebrations_filter_expressions=[])
       super(calendar)
 
       @days_filter = proc do |day|
         days_filter_expressions.all? do |expr|
           day.instance_eval expr
+        end
+      end
+
+      @celebrations_filter = proc do |celebration|
+        celebrations_filter_expressions.all? do |expr|
+          celebration.instance_eval expr
         end
       end
     end
@@ -20,7 +26,7 @@ module Calrom
         return FilteredDay.build_skipped raw
       end
 
-      FilteredDay.new raw, raw.celebrations
+      FilteredDay.new raw, raw.celebrations.select(&@celebrations_filter)
     end
 
     def each_day_in_range(range, include_skipped: false)

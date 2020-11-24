@@ -147,6 +147,10 @@ module Calrom
           config.filter_days << expr
         end
 
+        opts.on('--filter-celebrations=EXPR', 'display only celebrations for which the expression evaluates as truthy') do |expr|
+          config.filter_celebrations << expr
+        end
+
         # cal
         opts.on('-e', '--easter', 'display date of Easter (only)') do
           config.formatter = :easter

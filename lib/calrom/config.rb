@@ -13,6 +13,7 @@ module Calrom
       self.transfer_to_sunday = []
       self.temporale_extensions = []
       self.filter_days = []
+      self.filter_celebrations = []
     end
 
     ATTRIBUTES = [
@@ -29,6 +30,7 @@ module Calrom
       :highlight,
       :verbose,
       :filter_days,
+      :filter_celebrations,
     ]
 
     attr_accessor *ATTRIBUTES
@@ -39,17 +41,21 @@ module Calrom
     end
 
     def calendar
-      if is_remote_calendar?
-        if @sanctorale.size > 1
-          raise InputError.new '--calendar option provided multiple times, but at least one of the calendars is remote. Remote calendars cannot be layered.'
+      calendar =
+        if is_remote_calendar?
+          if @sanctorale.size > 1
+            raise InputError.new '--calendar option provided multiple times, but at least one of the calendars is remote. Remote calendars cannot be layered.'
+          end
+
+          CR::Remote::Calendar.new date_range.first.year, @sanctorale.last
+        else
+          CR::PerpetualCalendar.new(sanctorale: build_sanctorale, temporale_options: temporale_options)
         end
 
-        return CR::Remote::Calendar.new date_range.first.year, @sanctorale.last
-      end
-
       FilteringCalendar.new(
-        CR::PerpetualCalendar.new(sanctorale: build_sanctorale, temporale_options: temporale_options),
-        filter_days
+        calendar,
+        filter_days,
+        filter_celebrations,
       )
     end
 
