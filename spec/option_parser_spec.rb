@@ -210,7 +210,8 @@ describe Calrom::OptionParser do
         [%w(--temporale-extension=ChristEternalPriest), %w(--te=ChristEternalPriest)],
         [%w(--locale=en), %w(--loc=en)],
         [%w(--list), %w(--li)],
-        [%w(--format=overview), %w(--f=overview)],
+        [%w(--format=overview), %w(--fo=overview)],
+        [%w(--filter-days=true), %w(--fi=true)],
         [%w(--easter), %w(--e)],
         [%w(--calendars), %w(--calendars)], # no shortening possible due to --calendar=
         [%w(--color), %w(--col)],

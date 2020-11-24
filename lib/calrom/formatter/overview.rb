@@ -29,14 +29,19 @@ module Calrom
         io.puts weekdays
 
         io.print '   ' * month.first.wday
-        month.each do |date|
-          liturgical_day = calendar[date]
+        calendar.each_day_in_range(month, include_skipped: true) do |liturgical_day|
+          date = liturgical_day.date
 
-          celebration = liturgical_day.celebrations.first
+          if liturgical_day.skipped?
+            datestr = '  '
+          else
+            celebration = liturgical_day.celebrations.first
 
-          datestr = date.day.to_s.rjust(2)
-          datestr = highlighter.colour(datestr, celebration.colour)
-          datestr = highlighter.rank(datestr, celebration.rank)
+            datestr = date.day.to_s.rjust(2)
+            datestr = highlighter.colour(datestr, celebration.colour)
+            datestr = highlighter.rank(datestr, celebration.rank)
+          end
+
           if date == today
             datestr = highlighter.today datestr
           end

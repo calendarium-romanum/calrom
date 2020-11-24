@@ -9,8 +9,8 @@ module Calrom
         # vast amounts of calendar data without risking RAM exhaustion.
         print "["
 
-        date_range.each_with_index do |date, i|
-          day = calendar[date]
+        calendar.each_day_in_range(date_range).each_with_index do |day,i|
+          date = day.date
           hash = {
             date: date,
             season: day.season.symbol,

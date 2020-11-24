@@ -2,9 +2,7 @@ module Calrom
   module Formatter
     class Condensed < Formatter
       def call(calendar, date_range)
-        date_range.each do |date|
-          day calendar[date]
-        end
+        calendar.each_day_in_range(date_range) {|d| day d }
       end
 
       private

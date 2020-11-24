@@ -7,8 +7,7 @@ module Calrom
         CSV do |out|
           out << %w(date title symbol rank rank_num colour season)
 
-          date_range.each do |date|
-            day = calendar[date]
+          calendar.each_day_in_range(date_range) do |day|
             day.celebrations.each do |c|
               out << [
                 day.date,

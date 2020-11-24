@@ -12,6 +12,7 @@ module Calrom
       self.highlight = Set.new(%i(colour rank today))
       self.transfer_to_sunday = []
       self.temporale_extensions = []
+      self.filter_days = []
     end
 
     ATTRIBUTES = [
@@ -27,6 +28,7 @@ module Calrom
       :load_parents,
       :highlight,
       :verbose,
+      :filter_days,
     ]
 
     attr_accessor *ATTRIBUTES
@@ -45,7 +47,10 @@ module Calrom
         return CR::Remote::Calendar.new date_range.first.year, @sanctorale.last
       end
 
-      CR::PerpetualCalendar.new(sanctorale: build_sanctorale, temporale_options: temporale_options)
+      FilteringCalendar.new(
+        CR::PerpetualCalendar.new(sanctorale: build_sanctorale, temporale_options: temporale_options),
+        filter_days
+      )
     end
 
     def build_sanctorale

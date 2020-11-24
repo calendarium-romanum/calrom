@@ -29,3 +29,7 @@ Then(/^the output should contain (some|no) colour codes$/) do |value|
     raise 'unexpected'
   end
 end
+
+Then(/^the output should have (\d+) lines$/) do |count|
+  expect(last_command_started.stdout.lines.count).to eq count.to_i
+end

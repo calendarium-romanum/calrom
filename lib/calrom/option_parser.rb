@@ -143,6 +143,10 @@ module Calrom
           config.formatter = value
         end
 
+        opts.on('--filter-days=EXPR', 'display only days for which the expression evaluates as truthy') do |expr|
+          config.filter_days << expr
+        end
+
         # cal
         opts.on('-e', '--easter', 'display date of Easter (only)') do
           config.formatter = :easter

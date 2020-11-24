@@ -9,9 +9,7 @@ module Calrom
 
         current_month = nil
 
-        date_range.each do |date|
-          liturgical_day = calendar[date]
-
+        calendar.each_day_in_range(date_range) do |liturgical_day|
           if print_months && liturgical_day.date.month != current_month
             current_month = liturgical_day.date.month
 
