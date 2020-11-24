@@ -163,12 +163,16 @@ describe Calrom::OptionParser do
   end
 
   describe 'equivalency of result based on input' do
+    def self.stringify(argv)
+      argv.join ' '
+    end
+
     describe 'non-equivalent options' do
       [
         [%w(--today), %w()],
         [%w(-m1), %w(-m2)],
       ].each do |a,b|
-        it "'a' does not equal 'b'" do
+        it "'#{stringify a}' does not equal '#{stringify b}'" do
           expect(described_class.(a))
             .not_to eq described_class.(b)
         end
@@ -224,7 +228,7 @@ describe Calrom::OptionParser do
         [%w(--format=overview), %w(--format=o)],
         [%w(--format=overview), %w(-fo)], # short option and shortenned predefined value
       ].each do |a,b|
-        it "'a' equals 'b'" do
+        it "'#{stringify a}' equals '#{stringify b}'" do
           expect(described_class.(a))
             .to eq described_class.(b)
         end
