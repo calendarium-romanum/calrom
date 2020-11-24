@@ -31,3 +31,10 @@ Scenario: Filter expression raising an exception
   Then the exit status should be 1
   And the output should contain "Filter expression '1/0' raised ZeroDivisionError: divided by 0"
   And the stderr should not contain traceback
+
+Scenario: Easily use calendarium-romanum constants
+  # demonstrates that calendarium-romanum constants for celebration ranks, colours and seasons
+  # are included in the expressions' context and it's not necessary to use qualifiers
+  # like CR::Ranks::FERIAL or Ranks::FERIAL
+  When I run `calrom --filter-celebrations="rank != FERIAL && colour == RED" --filter-days="season == LENT"`
+  Then the exit status should be 0
