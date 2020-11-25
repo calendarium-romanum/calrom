@@ -82,14 +82,7 @@ module Calrom
             end
 
           if load_parents?
-            begin
-              data_file.load_with_parents
-            rescue NoMethodError
-              # As of calendarium-romanum 0.7.0 `SanctoraleFactory.load_with_parents` crashes
-              # when any of the calendars lacks the YAML front matter.
-              # Until that is fixed, let's fallback to the simple load.
-              data_file.load
-            end
+            data_file.load_with_parents
           else
             data_file.load
           end

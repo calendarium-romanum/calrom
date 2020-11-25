@@ -5,14 +5,7 @@ module Calrom
       def call(calendar, date_range)
         last_locale = nil
         CR::Data.each do |d|
-          sanctorale =
-            begin
-              d.load_with_parents
-            rescue StandardError => e
-              # As of calendarium-romanum 0.7.0, loading of one bundled data file fails like this
-              STDERR.puts "Parent loading for #{d.siglum.inspect} failed: #{e.message} (#{e.class})"
-              d.load
-            end
+          sanctorale = d.load_with_parents
           meta = sanctorale.metadata
           puts if last_locale && last_locale != meta['locale']
           default = d == Config::DEFAULT_DATA ? ' [default]' : ''

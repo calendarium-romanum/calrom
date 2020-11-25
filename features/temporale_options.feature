@@ -14,8 +14,6 @@ Scenario: Invalid solemnity for transfer
   And the stderr should not contain traceback
 
 Scenario: Use Temporale extension
-  # TODO: use normal list format and check for feast name once we are on current calendarium-romanum
-  #   (0.7.1 does not have the feast name in English)
-  When I run `calrom --temporale-extension=ChristEternalPriest --format=csv 2020-06-04`
+  When I run `calrom --temporale-extension=ChristEternalPriest 2020-06-04`
   Then the exit status should be 0
-  And the output should contain "christ_eternal_priest"
+  And the output should contain "Our Lord Jesus Christ, The Eternal High Priest"
