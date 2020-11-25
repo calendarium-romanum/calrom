@@ -227,6 +227,8 @@ describe Calrom::OptionParser do
         [%w(--to-sunday=epiphany), %w(--to-sunday=e)],
         [%w(--to-sunday=ascension), %w(--to-sunday=a)],
 
+        [%w(--temporale-extension=ChristEternalPriest), %w(--temporale-extension=C)],
+
         [%w(--format=overview), %w(--format=o)],
         [%w(--format=overview), %w(-fo)], # short option and shortenned predefined value
       ].each do |a,b|

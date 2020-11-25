@@ -3,15 +3,7 @@ require 'calendarium-romanum/remote'
 require 'colorized_string'
 
 # make useful calendarium-romanum constants available as top-level constants
-[
-  CalendariumRomanum::Colours,
-  CalendariumRomanum::Seasons,
-  CalendariumRomanum::Ranks,
-].each do |enum|
-  enum.constants.each do |symbol|
-    Kernel.const_set symbol, enum.const_get(symbol)
-  end
-end
+include CalendariumRomanum::Constants
 
 module Calrom
   CR = CalendariumRomanum

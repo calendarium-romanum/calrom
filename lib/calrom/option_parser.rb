@@ -119,8 +119,8 @@ module Calrom
           config.transfer_to_sunday << value.to_sym
         end
 
-        # TODO: list supported values (needs CR::Temporale::Extensions.all)
-        opts.on('--temporale-extension=EXTENSION', 'use temporale extension') do |value|
+        extensions = CR::Temporale::Extensions.all.collect {|cls| cls.name.split('::').last.to_sym }
+        opts.on('--temporale-extension=EXTENSION', extensions, 'use temporale extension' + supported_values(extensions)) do |value|
           config.temporale_extensions << CR::Temporale::Extensions.const_get(value)
         end
 
