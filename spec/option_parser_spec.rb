@@ -220,8 +220,12 @@ describe Calrom::OptionParser do
         [%w(--verbose), %w(--verb)],
         [%w(--current-month=2000-01), %w(--cu=2000-01)],
         [%w(--highlight-date=2000-01-01), %w(--hi=2000-01-01)],
-        [%w(--version), %w(--vers)],
-        [%w(--help), %w(--h)],
+
+        # TODO: --version and --help cannot be tested, as they result in `exit` call in OptionParser,
+        #   preventing execution of subsequent examples
+        #
+        # [%w(--version), %w(--vers)],
+        # [%w(--help), %w(--h)],
 
         # pre-defined option values: full vs. shortenned
         [%w(--to-sunday=epiphany), %w(--to-sunday=e)],
@@ -230,7 +234,6 @@ describe Calrom::OptionParser do
         [%w(--temporale-extension=ChristEternalPriest), %w(--temporale-extension=C)],
 
         [%w(--format=overview), %w(--format=o)],
-        [%w(--format=overview), %w(-fo)], # short option and shortenned predefined value
       ].each do |a,b|
         it "'#{stringify a}' equals '#{stringify b}'" do
           expect(described_class.(a))
