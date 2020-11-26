@@ -143,11 +143,11 @@ module Calrom
           config.formatter = value
         end
 
-        opts.on('--day-filter=EXPR', 'display only days for which the expression evaluates as truthy') do |expr|
+        opts.on('--day-filter=EXPR', 'display only days for which the expression (Ruby snippet executed in context of each CalendariumRomanum::Day instance) evaluates as truthy') do |expr|
           config.filter_days << expr
         end
 
-        opts.on('--celebration-filter=EXPR', 'display only celebrations for which the expression evaluates as truthy') do |expr|
+        opts.on('--celebration-filter=EXPR', 'display only celebrations for which the expression (Ruby snippet executed in context of each CalendariumRomanum::Celebration instance) evaluates as truthy') do |expr|
           config.filter_celebrations << expr
         end
 
