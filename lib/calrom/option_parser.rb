@@ -143,11 +143,11 @@ module Calrom
           config.formatter = value
         end
 
-        opts.on('--filter-days=EXPR', 'display only days for which the expression evaluates as truthy') do |expr|
+        opts.on('--day-filter=EXPR', 'display only days for which the expression evaluates as truthy') do |expr|
           config.filter_days << expr
         end
 
-        opts.on('--filter-celebrations=EXPR', 'display only celebrations for which the expression evaluates as truthy') do |expr|
+        opts.on('--celebration-filter=EXPR', 'display only celebrations for which the expression evaluates as truthy') do |expr|
           config.filter_celebrations << expr
         end
 
