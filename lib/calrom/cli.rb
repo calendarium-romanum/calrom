@@ -37,6 +37,8 @@ module Calrom
       rescue InputError => e
         STDERR.puts e.message
         exit 1
+      rescue Errno::EPIPE
+        # broken pipe - simply stop execution, exit successfully
       end
     end
 
