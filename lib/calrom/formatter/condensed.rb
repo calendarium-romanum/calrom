@@ -16,7 +16,7 @@ module Calrom
         size = liturgical_day.celebrations.size
         more = size > 1 ? " +#{size-1}" : ''
 
-        puts "#{colour}#{rank} #{title}#{more}"
+        puts "#{title} #{rank}#{colour}#{more}"
       end
 
       def rank(rank)
