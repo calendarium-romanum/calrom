@@ -11,11 +11,11 @@ module Calrom
 
         calendar.each_day_in_range(date_range) do |liturgical_day|
           if print_months && liturgical_day.date.month != current_month
-            current_month = liturgical_day.date.month
-
-            puts
+            puts unless current_month == nil
             puts liturgical_day.date.strftime('%B') #current_month
             puts
+
+            current_month = liturgical_day.date.month
           end
 
           day liturgical_day
