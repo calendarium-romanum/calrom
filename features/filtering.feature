@@ -32,6 +32,12 @@ Scenario: Filter expression raising an exception
   And the output should contain "Filter expression '1/0' raised ZeroDivisionError: divided by 0"
   And the stderr should not contain traceback
 
+Scenario: Filter expression containing a syntax error
+  When I run `calrom --day-filter="("`
+  Then the exit status should be 1
+  And the output should contain "Filter expression '(' raised SyntaxError: (eval):1: syntax error, unexpected end-of-input"
+  And the stderr should not contain traceback
+
 Scenario: Easily use calendarium-romanum constants
   # demonstrates that calendarium-romanum constants for celebration ranks, colours and seasons
   # are included in the expressions' context and it's not necessary to use qualifiers
