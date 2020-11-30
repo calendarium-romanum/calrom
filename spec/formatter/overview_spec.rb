@@ -9,7 +9,7 @@ describe Calrom::Formatter::Overview do
     it 'produces expected layout' do
       io = StringIO.new
 
-      described_class.new(highlighter, Date.today).(calendar, range, io)
+      described_class.new(highlighter, Date.today, io).(calendar, range)
 
       expected = [
         "      June 2020       ",

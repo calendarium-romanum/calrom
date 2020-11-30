@@ -4,10 +4,10 @@ require 'stringio'
 module Calrom
   module Formatter
     class Overview < Formatter
-      def call(calendar, date_range, io = STDOUT)
+      def call(calendar, date_range)
         colnum = 3 # TODO: expose configuration
         if date_range.is_a? Year
-          io.puts center_on(weekdays.size * colnum + 2 * (colnum - 1), date_range.to_s)
+          puts center_on(weekdays.size * colnum + 2 * (colnum - 1), date_range.to_s)
         end
 
         date_range.each_month.each_slice(colnum) do |months|
@@ -16,7 +16,7 @@ module Calrom
               print_month io, calendar, month, date_range.is_a?(Year)
             end
           end
-          print_columns columns, io
+          print_columns columns, @io
         end
       end
 
