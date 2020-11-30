@@ -3,9 +3,7 @@ Feature: Environment variables
   I want the command to support limited configuration through environment variables
 
   Scenario: set current date
-    Given I set the environment variables to:
-      | variable            | value      |
-      | CALROM_CURRENT_DATE | 2000-01-01 |
+    Given I set the environment variable "CALROM_CURRENT_DATE" to "2000-01-01"
     When I run `calrom --today`
     Then the exit status should be 0
     And the output should match /^2000-01-01/
