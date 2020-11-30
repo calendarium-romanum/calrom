@@ -2,7 +2,7 @@ module Calrom
   module Formatter
     class List < Formatter
       def call(calendar, date_range)
-        print_months = date_range.first.month != date_range.last.month
+        print_months = date_range.spans_multiple_months?
 
         puts date_range.to_s
         puts

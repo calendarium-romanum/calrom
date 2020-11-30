@@ -51,6 +51,20 @@ describe 'date ranges' do
           .to eq [range]
       end
     end
+
+    describe '#spans_multiple_months?' do
+      [
+        ['the same date', false, Calrom::DateRange.new(Date.today, Date.today)],
+        ['the same month', false, Calrom::DateRange.new(Date.new(2000, 1, 1), Date.new(2000, 1, 31))],
+        ['different months', true, Calrom::DateRange.new(Date.new(2000, 1, 1), Date.new(2000, 2, 1))],
+        ['different months, days close', true, Calrom::DateRange.new(Date.new(2000, 1, 31), Date.new(2000, 2, 1))],
+        ['different years', true, Calrom::DateRange.new(Date.new(2000, 1, 1), Date.new(2001, 1, 1))],
+      ].each do |name, expected, range|
+        it name do
+          expect(range.spans_multiple_months?).to be expected
+        end
+      end
+    end
   end
 
   describe Calrom::Month do

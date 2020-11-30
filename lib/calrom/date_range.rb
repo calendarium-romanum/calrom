@@ -22,6 +22,11 @@ module Calrom
         end
       end
     end
+
+    def spans_multiple_months?
+      first.month != last.month ||
+        first.year != last.year
+    end
   end
 
   class Year < DateRange
