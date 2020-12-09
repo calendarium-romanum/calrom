@@ -10,7 +10,7 @@ Scenario: Filter days
 Scenario: Filter days by multiple expressions
   When I run `calrom --day-filter="date.day == 1" --day-filter="celebrations[0].rank > CR::Ranks::MEMORIAL_GENERAL" -l 2000`
   Then the exit status should be 0
-  And the output should have 22 lines
+  And the output should have 21 lines
   And the output should contain "Mary"
   And the output should contain "Ascension"
 
