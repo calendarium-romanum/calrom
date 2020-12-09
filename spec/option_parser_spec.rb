@@ -95,9 +95,8 @@ describe Calrom::OptionParser do
       month = Date.today.month
       range = described_class.(%w(-3)).date_range
 
-      expect(range).to be_a Calrom::DateRange
-      expect(range.first).to eq(Date.new(year, (month - 1), 1))
-      expect(range.last).to eq(Date.new(year, (month + 1), -1))
+      expect(range).to be_a Calrom::ThreeMonths
+      expect(range).to eq(Calrom::ThreeMonths.new(today.year, today.month))
     end
 
     describe 'conflicting range type options' do
