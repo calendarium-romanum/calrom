@@ -14,89 +14,72 @@ describe Calrom::OptionParser do
 
     it 'current month is default' do
       range = described_class.([]).date_range
-      expect(range).to be_a Calrom::Month
       expect(range).to eq current_month
     end
 
     it 'current year' do
       range = described_class.(%w(-y)).date_range
-      expect(range).to be_a Calrom::Year
       expect(range).to eq current_year
     end
 
     it 'specified year' do
       range = described_class.(%w(2000)).date_range
-      expect(range).to be_a Calrom::Year
       expect(range).to eq Calrom::Year.new(2000)
     end
 
     it 'specified month' do
       range = described_class.(%w(-m6)).date_range
-      expect(range).to be_a Calrom::Month
       expect(range).to eq Calrom::Month.new(today.year, 6)
     end
 
     it 'specified month of the previous year' do
       range = described_class.(%w(-m6p)).date_range
-      expect(range).to be_a Calrom::Month
       expect(range).to eq Calrom::Month.new(today.year - 1, 6)
     end
 
     it 'specified month of the following year' do
       range = described_class.(%w(-m6f)).date_range
-      expect(range).to be_a Calrom::Month
       expect(range).to eq Calrom::Month.new(today.year + 1, 6)
     end
 
     it 'specified year and month (argument)' do
       range = described_class.(%w(5 2000)).date_range
-      expect(range).to be_a Calrom::Month
       expect(range).to eq Calrom::Month.new(2000, 5)
     end
 
     it 'specified year and month (option)' do
       range = described_class.(%w(-m 5 2000)).date_range
-      expect(range).to be_a Calrom::Month
       expect(range).to eq Calrom::Month.new(2000, 5)
     end
 
     it 'yesterday' do
       range = described_class.(%w(--yesterday)).date_range
-      expect(range).to be_a Calrom::Day
-      expect(range.first).to eq(Date.today - 1)
+      expect(range).to eq Calrom::Day.new(today - 1)
     end
 
     it 'today' do
       range = described_class.(%w(--today)).date_range
-      expect(range).to be_a Calrom::Day
-      expect(range.first).to eq Date.today
+      expect(range).to eq Calrom::Day.new(Date.today)
     end
 
     it 'tomorrow' do
       range = described_class.(%w(--tomorrow)).date_range
-      expect(range).to be_a Calrom::Day
-      expect(range.first).to eq(Date.today + 1)
+      expect(range).to eq Calrom::Day.new(Date.today + 1)
     end
 
     it 'specified date' do
       range = described_class.(%w(2000-01-02)).date_range
-      expect(range).to be_a Calrom::Day
-      expect(range.first).to eq(Date.new(2000, 1, 2))
+      expect(range).to eq Calrom::Day.new(Date.new(2000, 1, 2))
     end
 
     it 'specified date in distant future' do
       range = described_class.(%w(100000-01-02)).date_range
-      expect(range).to be_a Calrom::Day
-      expect(range.first).to eq(Date.new(100000, 1, 2))
+      expect(range).to eq Calrom::Day.new(Date.new(100000, 1, 2))
     end
 
-    it 'specified previous, current and next month surrounding today' do
-      year = Date.today.year
-      month = Date.today.month
+    it 'three months surrounding today' do
       range = described_class.(%w(-3)).date_range
-
-      expect(range).to be_a Calrom::ThreeMonths
-      expect(range).to eq(Calrom::ThreeMonths.new(today.year, today.month))
+      expect(range).to eq Calrom::ThreeMonths.new(today.year, today.month)
     end
 
     describe 'conflicting range type options' do
