@@ -1,6 +1,6 @@
 language: ruby
 
-dist: trusty
+dist: focal
 
 # oldest supported and newest MRI
 rvm:
