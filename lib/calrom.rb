@@ -10,6 +10,7 @@ module Calrom
 end
 
 require 'calrom/version'
+require 'calrom/refinement/calendarium-romanum/triduum_nameclash_workaround'
 require 'calrom/cli'
 require 'calrom/option_parser'
 require 'calrom/environment_reader'

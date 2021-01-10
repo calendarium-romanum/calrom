@@ -3,6 +3,8 @@ require 'delegate'
 module Calrom
   # decorates /(Perpetual)?Calendar/, returns data filtered
   class FilteringCalendar < SimpleDelegator
+    using Refinement::CalendariumRomanum::TriduumNameClashWorkaround
+
     def initialize(calendar, days_filter_expressions=[], celebrations_filter_expressions=[])
       super(calendar)
 
