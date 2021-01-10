@@ -1,6 +1,9 @@
 module Calrom
   module Refinement
     module CalendariumRomanum
+      # Refinement used when evaluating the Day/Celebration filter expressions.
+      # Allows the user (at least in simple cases) to write just `TRIDUUM` both
+      # as a season and as a rank.
       module TriduumNameClashWorkaround
         refine CR::Season do
           alias_method :old_equal, :==
