@@ -184,6 +184,7 @@ module Calrom
 
         opts.on('-V', '--version', 'display calrom version') do
           puts 'calrom v' + Calrom::VERSION
+          puts 'using calendarium-romanum v' + CR::VERSION
           exit
         end
 
