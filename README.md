@@ -139,7 +139,7 @@ Clone the repository, `$ bundle install` to install dependencies, then:
 ## Project roadmap
 
 * [x] detailed listing of a day/month/year/range of dates
-* [ ] month/year overview - options and output mostly mimicking
+* [x] month/year overview - options and output mostly mimicking
   the BSD Unix [`cal`][cal] utility,
   but with liturgical colours and celebration ranks
 * [x] condensed format (but with detailed information) suitable for awesome/i3 toolbars etc.
