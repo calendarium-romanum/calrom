@@ -49,7 +49,7 @@ module Calrom
 
           CR::Remote::Calendar.new date_range.first.year, @sanctorale.last
         else
-          CR::PerpetualCalendar.new(sanctorale: build_sanctorale, temporale_options: temporale_options)
+          CR::PerpetualCalendar.new(sanctorale: build_sanctorale, temporale_options: temporale_options, vespers: true)
         end
 
       FilteringCalendar.new(

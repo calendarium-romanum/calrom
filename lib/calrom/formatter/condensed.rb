@@ -13,8 +13,7 @@ module Calrom
         colour = highlighter.colour(c.colour.name[0].upcase, c.colour)
         rank = highlighter.rank(rank(c.rank), c.rank)
         title = short_title c
-        size = liturgical_day.celebrations.size
-        more = size > 1 ? " +#{size-1}" : ''
+        more = additional_celebrations(liturgical_day) + vespers(liturgical_day)
 
         puts "#{title} #{rank}#{colour}#{more}"
       end
@@ -36,6 +35,16 @@ module Calrom
         else
           celebration.title
         end
+      end
+
+      def additional_celebrations(day)
+        size = day.celebrations.size
+
+        size > 1 ? " +#{size-1}" : ''
+      end
+
+      def vespers(day)
+        day.vespers_from_following? ? '>' : ''
       end
     end
   end

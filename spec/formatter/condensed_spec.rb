@@ -1,7 +1,7 @@
 require_relative '../spec_helper'
 
 describe Calrom::Formatter::Condensed do
-  let(:calendar) { Calrom::FilteringCalendar.new CR::PerpetualCalendar.new(sanctorale: CR::Data::GENERAL_ROMAN_ENGLISH.load) }
+  let(:calendar) { Calrom::FilteringCalendar.new CR::PerpetualCalendar.new(sanctorale: CR::Data::GENERAL_ROMAN_ENGLISH.load, vespers: true) }
   let(:highlighter) { Calrom::Highlighter::No.new }
   let(:today) { Date.today }
 
@@ -11,7 +11,7 @@ describe Calrom::Formatter::Condensed do
     ['Sunday', Date.new(2021, 1, 17), "2nd Sunday in Ordinary Time +G\n"],
     ['feast', Date.new(2021, 1, 10), "The Baptism of the Lord +W\n"],
     ['solemnity', Date.new(2021, 1, 6), "The Epiphany *W\n"],
-    ['Vespers from the following', Date.new(2021, 1, 5), "Tuesday after Christmas Octave W\n"],
+    ['Vespers from the following', Date.new(2021, 1, 5), "Tuesday after Christmas Octave W>\n"],
   ].each do |label, date, expected|
     it label do
       range = Calrom::Day.new date
