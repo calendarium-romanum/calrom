@@ -13,7 +13,7 @@ module Calrom
               return CR::Ranks::TRIDUUM == other
             end
 
-            return old_equal(other)
+            old_equal other
           end
         end
 
@@ -25,7 +25,7 @@ module Calrom
               return CR::Seasons::TRIDUUM == other
             end
 
-            return old_equal other
+            old_equal other
           end
         end
       end
