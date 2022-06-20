@@ -1,0 +1,24 @@
+name: CI
+on: [push, pull_request]
+jobs:
+  specs:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # oldest supported and newest MRI
+        # TODO: versions known to have worked back in Travis days; update needed
+        ruby-version:
+          - 2.5.0
+          - 3.0.0
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+      - name: Set up Ruby ${{ matrix.ruby-version }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+      - name: Install dependencies
+        run: bundle install --jobs=3 --deployment
+      - name: Run tests
+        run: bundle exec rake
