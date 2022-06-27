@@ -6,10 +6,9 @@ jobs:
     strategy:
       matrix:
         # oldest supported and newest MRI
-        # TODO: versions known to have worked back in Travis days; update needed
         ruby-version:
-          - 2.5.0
-          - 3.0.0
+          - 2.7.0
+          - 3.0.0 # TODO: update
 
     steps:
       - name: Check out code

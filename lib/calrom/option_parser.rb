@@ -1,11 +1,8 @@
 require 'optparse'
-require 'pattern-match'
 
 module Calrom
   # Parses command line options, produces Config.
   class OptionParser
-    using PatternMatch
-
     # Raised when the options being parsed are invalid.
     #
     # Exceptions raised by the option parsing library are translated to this exception,
@@ -203,33 +200,24 @@ module Calrom
       end
 
       iso_date_regexp = /^(\d{4,}-\d{2}-\d{2})$/
-      match(arguments) do
-        with(_[iso_date_regexp.(date)]) do
-          range_type = :day
-          day = date
-        end
 
-        with(_[iso_date_regexp.(date), iso_date_regexp.(another_date)]) do
-          range_type = :free
-          day = date
-          another_day = another_date
-        end
-
-        with(_[y]) do
-          range_type ||= :year
-          year = y
-        end
-
-        with(_[m, y]) do
-          range_type = :month
-          month, year = m, y
-        end
-
-        with([]) {}
-
-        with(_) do
-          raise InputError.new('too many arguments')
-        end
+      case arguments
+      in [^iso_date_regexp => date]
+        range_type = :day
+        day = date
+      in [^iso_date_regexp => date, ^iso_date_regexp => another_date]
+        range_type = :free
+        day = date
+        another_day = another_date
+      in [y]
+        range_type ||= :year
+        year = y
+      in [m, y]
+        range_type = :month
+        month, year = m, y
+      in []
+      else
+        raise InputError.new('too many arguments')
       end
 
       config.date_range =
