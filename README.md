@@ -46,6 +46,35 @@ Print liturgical calendar for the current month (default):
 
 `$ calrom 2028-01-15 2028-03-07`
 
+### Day and celebration filtering
+
+In addition to specifying date range, filtering is a way to further refine
+the selection of data to be displayed. Options `--day-filter=` and `--celebration-filter=`
+both accept a snippet of Ruby code, which is then `eval`ed in context of each
+`CalendariumRomanum::Day` / `CalendariumRomanum::Celebration` within the selected date range
+and only days/celebrations for which the expression evaluates truthy are displayed.
+
+Display only Saturdays:
+
+`$ calrom --day-filter='date.saturday?'`
+
+Display all Mondays with a celebration of a rank higher than memorial:
+
+`$ calrom --day-filter='date.monday?' --day-filter='celebrations[0].rank > MEMORIAL_GENERAL'`
+
+(As you can see, `calendarium-romanum` constants like ranks or seasons are available
+as top-level constants. Noone likes extensive writing in the terminal.)
+
+Display only ferials:
+
+`$ calrom --celebration-filter='ferial?'`
+
+Display only celebrations in green:
+
+`$ calrom --celebration-filter='colour == GREEN'`
+
+The options can be combined and used repeatedly to narrow the selection down as needed.
+
 ### Selecting calendar
 
 There are a few calendars bundled in calrom (actually in the calendarium-romanum gem)
@@ -68,6 +97,17 @@ with just a few additional and/or differing celebrations, e.g. solemnities (titu
 of the local church:
 
 `$ calrom --calendar=universal-la --calendar=path/to/our_local_celebrations.txt`
+
+Please note that specifying more than one calendar disables automatic loading of
+parent calendars. If any of the listed calendars extends a parent calendar,
+the parent either has to be explicitly listed using the `--calendar` option in order to be loaded,
+or automatic parent loading has to be explicitly enabled using the `--load-parents` option.
+
+Limited support for remote calendars is provided. Calendar URL from the
+[Liturgical Calendar API](http://calapi.inadiutorium.cz/) or a compatible calendar API
+is accepted as a value of `--calendar=`:
+
+`$ calrom --calendar=http://calapi.inadiutorium.cz/api/v0/en/calendars/general-la`
 
 ### Data presentation settings
 
@@ -99,9 +139,6 @@ They are processed in this order and both are used if available.
 Their syntax is that of shell options and arguments (with the sole exception that newline
 is not considered end of shell input, but generic whitespace), supported are all options and arguments
 accepted by the command.
-It usually makes sense to use configuration files only for the most fundamental settings
-you will never change, like selecting calendar (if you know you will always check this single one)
-or disabling colours (if you hate colourful output).
 
 If a custom configuration file location is specified on the command line,
 `$ calrom --config=path/to/my/custom/config`, the standard system-wide and user-specific configuration
@@ -125,6 +162,16 @@ and disabling colours:
 
 (Configuration file format is inspired by [.rspec][dotrspec], [.yardopts][dotyardopts]
 and others.)
+
+Most options work in such a way that if several conflicting options are provided,
+the last one wins. You can thus e.g. set your favourite display format (e.g. `--list`)
+or date range (e.g. `-3`) in the configuration file and override it, if necessary,
+by providing some other option from the same group on the command line.
+An exception from this rule is the `--calendar=` option, repeated occurrences of which
+do not cancel each other, but are all composed together in the given order to build a calendar
+by layering.
+Also repeated occurrences of the `--day-filter=` and `--celebration-filter=` options
+don't cancel each other, but all specified filtering expressions are applied.
 
 ## Running tests
 
