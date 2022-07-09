@@ -28,3 +28,17 @@ Feature: Machine-readable output formats
     [{"date":"2001-02-12","season":"ordinary","season_week":6,"celebrations":[{"title":"Monday, 6th week in Ordinary Time","symbol":null,"colour":"green","rank":"ferial","rank_num":3.13}],"weekday":"Monday"},
     {"date":"2001-02-13","season":"ordinary","season_week":6,"celebrations":[{"title":"Tuesday, 6th week in Ordinary Time","symbol":null,"colour":"green","rank":"ferial","rank_num":3.13}],"weekday":"Tuesday"}]
     """
+
+  Scenario: iCalendar
+    When I run `calrom --format=ical 2001-02-24`
+    Then the exit status should be 0
+    # TODO: it would be desirable to specify larger portions of the expected output,
+    #   but it's not obvious how to enter CRLF-style ("\r\n") EOL in Gherkin
+    And the output should contain:
+    """
+    SUMMARY:Saturday\, 7th week in Ordinary Time
+    """
+    And the output should contain:
+    """
+    SUMMARY:The Memorial of the Blessed Virgin Mary on Saturday
+    """

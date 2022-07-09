@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'calendarium-romanum', '~> 0.9.0'
   spec.add_dependency 'calendarium-romanum-remote', '~> 0.3.0'
   spec.add_dependency 'colorize', '~> 0.8'
+  spec.add_dependency 'icalendar', '~> 2.7'
 
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
