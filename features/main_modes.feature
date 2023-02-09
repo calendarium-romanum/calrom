@@ -22,7 +22,7 @@ Feature: Main modes
   Scenario: Condensed mode
     When I run `calrom --format=condensed 2000-01-06`
     Then the exit status should be 0
-    And the output should contain "The Epiphany *W"
+    And the output should contain "*The Epiphany W"
 
   Scenario: date of Easter
     When I run `calrom -e 2000`

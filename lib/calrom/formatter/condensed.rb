@@ -15,7 +15,7 @@ module Calrom
         title = short_title c
         more = additional_celebrations(liturgical_day) + vespers(liturgical_day)
 
-        puts "#{title} #{rank}#{colour}#{more}"
+        puts "#{rank}#{title} #{colour}#{more}"
       end
 
       def rank(rank)
