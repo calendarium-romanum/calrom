@@ -11,7 +11,7 @@ Feature: Main modes
   Scenario: Run in detailed listing mode
     When I run `calrom -l`
     Then the exit status should be 0
-    And the output should contain 29 to 31 day entries
+    And the output should contain 28 to 31 day entries
     And the output should mention some feasts of saints
 
   Scenario: For a single day use detailed listing mode by default
